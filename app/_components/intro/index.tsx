@@ -3,10 +3,7 @@
 import { Canvas } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
 import { Suspense, useCallback, useState } from "react";
-import {
-  INTRO_CAMERA,
-  preventWebglContextLost,
-} from "./constants";
+import { INTRO_CAMERA, preventWebglContextLost } from "./constants";
 import { IntroOverlay } from "./overlay";
 import { IntroScene } from "./scene";
 import type { BoxTextureId } from "./types";

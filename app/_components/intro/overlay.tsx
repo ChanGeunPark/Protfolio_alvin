@@ -8,8 +8,10 @@ export function IntroOverlay({ onCycleTexture }: IntroOverlayProps) {
   return (
     <>
       <span className="pointer-events-none absolute left-0 top-0 z-10 block h-[200px] w-full bg-gradient-to-t from-transparent to-zinc-900" />
-      <h2 className="pointer-events-none absolute bottom-1/4 left-1/2 -translate-x-1/2 text-zinc-200">
-        배우고 경험하고 도전하고 싶은게 너무 많은 개발자 박찬근입니다
+      <h2 className="pointer-events-none absolute bottom-1/4 left-1/2 -translate-x-1/2 text-zinc-200 font-bold text-center">
+        사용자 경험을 중심으로 문제를 해결하는 <br />{" "}
+        <span className="text-primaryMain">프론트엔드 개발자</span>{" "}
+        박찬근입니다.
       </h2>
       <button
         type="button"
@@ -25,7 +27,7 @@ export function IntroOverlay({ onCycleTexture }: IntroOverlayProps) {
         </div>
       </button>
       <article className="container absolute bottom-20 left-1/2 -translate-x-1/2">
-        <div className="absolute bottom-20 right-0 z-20 flex translate-x-[40%] rotate-90 items-center">
+        <div className="absolute bottom-20 right-2 z-20 flex translate-x-[40%] rotate-90 items-center">
           <span className="mr-2 text-zinc-400">Park Chan Geun</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +47,7 @@ export function IntroOverlay({ onCycleTexture }: IntroOverlayProps) {
             />
           </svg>
         </div>
-        <div className="pointer-events-auto absolute bottom-1/4 left-0 z-20 flex flex-col space-y-2">
+        <div className="pointer-events-auto absolute bottom-1/4 left-2 z-20 flex flex-col space-y-2">
           <span className="flex h-12 w-12 items-center justify-center rounded-lg border border-zinc-500 text-white">
             <a
               target="_blank"
