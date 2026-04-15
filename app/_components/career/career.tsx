@@ -4,7 +4,7 @@ import React from "react";
 
 function Career() {
   return (
-    <section className="bg-[#28292D] relative min-h-screen py-20">
+    <section className="bg-[#28292D] relative py-20 border-t border-b border-gray-800 ">
       <div className="container px-3 mx-auto">
         <h2 className="text-white text-2xl font-bold">커리어</h2>
         <div className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 z-30 mt-8">

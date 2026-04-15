@@ -59,6 +59,8 @@ export default {
         approveMain: "#14CC9E",
         approveDark: "#0F9573",
 
+        bgMain: "#28292D",
+
         gray: {
           0: "#ffffff",
           25: "#F8F9FA",

@@ -1,16 +1,25 @@
 import About from "./_components/about/about";
 import Career from "./_components/career/career";
+import Contact from "./_components/contact/contact";
 import IntroLoader from "./_components/intro-loader";
 import Navigation from "./_components/navigation";
+import Project from "./_components/project/project";
+import SmoothScroll from "./_components/scroll/smooth-scroll";
+import Skills from "./_components/skills/skills";
 
 export default function Home() {
   return (
     <div className="w-full">
-      <main className="h-screen w-full">
+      <main className="w-full bg-bgMain">
         <Navigation />
-        <IntroLoader /> {/* 인트로 */}
-        <About /> {/* 소개 */}
-        <Career /> {/* 경력 */}
+        <SmoothScroll smoothness={1}>
+          {/* <IntroLoader /> */}
+          <About /> {/* 소개 */}
+          <Career /> {/* 경력 */}
+          <Project /> {/* 프로젝트 */}
+          <Skills /> {/* 기술 */}
+          <Contact /> {/* 연락처 */}
+        </SmoothScroll>
       </main>
     </div>
   );
