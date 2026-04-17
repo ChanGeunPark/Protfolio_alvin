@@ -4,14 +4,16 @@ import Contact from "./_components/contact/contact";
 import IntroLoader from "./_components/intro-loader";
 import Navigation from "./_components/navigation";
 import Project from "./_components/project/project";
+import ProjectBackground from "./_components/project/projectBackground";
 import SmoothScroll from "./_components/scroll/smooth-scroll";
 import Skills from "./_components/skills/skills";
 
 export default function Home() {
   return (
     <div className="w-full">
-      <main className="w-full bg-bgMain">
+      <main className="w-full">
         <Navigation />
+        <ProjectBackground />
         <SmoothScroll smoothness={1}>
           {/* <IntroLoader /> */}
           <About /> {/* 소개 */}

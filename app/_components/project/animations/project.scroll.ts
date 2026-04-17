@@ -47,7 +47,7 @@ export function animateProjectScenes({
         force3D: true,
         overwrite: "auto",
         duration: 1,
-      }
+      },
     );
 
     if (badge) {

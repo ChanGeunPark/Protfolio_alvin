@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { useProjectSceneMotion } from "./hooks/useProjectSceneMotion";
+import ProjectIntroScene from "./projectIntroScene";
+import { getStreamEmbedUrl } from "@/lib/utils";
 
 type ProjectItem = {
   organization: "OG" | "에듀에듀";
@@ -88,7 +90,8 @@ const allProjects: ProjectItem[] = [
     ],
     imageHint: "CHIZU 핵심 화면 이미지",
     videoUrl: null,
-    imageUrl: null,
+    imageUrl:
+      "https://imagedelivery.net/anvL-_ABM0Z5KQo2YmJX4g/1dac75f3-68e9-4915-e9d2-67589ec1b100/public",
   },
   {
     organization: "OG",
@@ -128,14 +131,7 @@ const allProjects: ProjectItem[] = [
       "서비스 운영에 필요한 핵심 기능 구현",
       "사용자 관점의 클래스 개설 흐름을 반영해 완성도 향상",
     ],
-    tech: [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "DB 설계 및 설정",
-      "웹 퍼블리싱",
-      "프론트엔드 개발",
-    ],
+    tech: ["DB 설계 및 설정", "웹 퍼블리싱", "프론트엔드 개발"],
     imageHint: "에듀에듀 메인 사이트 이미지",
     videoUrl: null,
     imageUrl:
@@ -154,7 +150,7 @@ const allProjects: ProjectItem[] = [
       "판매와 렌트 기능이 가능한 서비스 구조 구현",
       "상품 전시와 구매 흐름을 고려한 사용자 화면 구성",
     ],
-    tech: ["HTML", "CSS", "JavaScript", "DB 설계", "웹 퍼블리싱"],
+    tech: ["DB 설계", "웹 퍼블리싱", "프론트엔드 개발"],
     imageHint: "ANDNEW 쇼핑몰 화면 이미지",
     videoUrl: null,
     imageUrl:
@@ -173,7 +169,7 @@ const allProjects: ProjectItem[] = [
       "단순 홍보형 사이트를 운영 기능 포함 플랫폼으로 확장",
       "개설 신청 기능으로 서비스 완성도 향상",
     ],
-    tech: ["HTML", "CSS", "JavaScript", "DB 연동", "웹 퍼블리싱"],
+    tech: ["DB 연동", "웹 퍼블리싱", "프론트엔드 개발"],
     imageHint: "에듀키즈 플랫폼 화면 이미지",
     videoUrl: null,
     imageUrl:
@@ -192,7 +188,7 @@ const allProjects: ProjectItem[] = [
       "핵심 기능을 사용자 흐름에 맞게 구현",
       "서비스 이용 편의성과 완성도 향상",
     ],
-    tech: ["HTML", "CSS", "JavaScript", "PHP", "UI/UX 설계", "웹 퍼블리싱"],
+    tech: ["PHP", "UI/UX 설계", "웹 퍼블리싱", "프론트엔드 개발"],
     imageHint: "Wekeep 서비스 화면 이미지",
     videoUrl: null,
     imageUrl:
@@ -211,14 +207,7 @@ const allProjects: ProjectItem[] = [
       "클래스 등록/관리 가능한 핵심 운영 기능 마련",
       "사용자 흐름 기반 UI로 이용 편의성과 완성도 향상",
     ],
-    tech: [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "DB 설계 및 설정",
-      "웹 퍼블리싱",
-      "프론트엔드 개발",
-    ],
+    tech: ["DB 설계 및 설정", "웹 퍼블리싱", "프론트엔드 개발"],
     imageHint: "퀵클래스 서비스 화면 이미지",
     videoUrl: null,
     imageUrl:
@@ -226,27 +215,14 @@ const allProjects: ProjectItem[] = [
   },
 ];
 
-function getStreamEmbedUrl(videoUrl: string) {
-  const connector = videoUrl.includes("?") ? "&" : "?";
-  return `${videoUrl}${connector}autoplay=true&muted=true&loop=true&controls=false`;
-}
-
 function Project() {
   useProjectSceneMotion();
 
   return (
-    <section
-      data-project-section
-      className="bg-[#28292D] relative min-h-screen py-20 md:py-28"
-    >
+    <section data-project-section className="relative min-h-screen md:py-28">
       <div className="mx-auto">
         {/* 프로젝트 타이틀 */}
-        <div className="flex flex-col items-center justify-center h-screen w-full">
-          <h2 className="text-white text-[64px] font-bold">Projects</h2>
-          <p className="text-white text-sm md:text-base mt-2 opacity-50">
-            2020.10 ~ 2026.02
-          </p>
-        </div>
+        <ProjectIntroScene />
 
         {/* 프로젝트 카드 */}
         <div className="space-y-8 md:space-y-10">
@@ -254,6 +230,7 @@ function Project() {
             <article
               key={`${project.organization}-${project.title}`}
               data-project-scene
+              id={`project-scene-${index}`}
               className="relative h-screen"
             >
               <div
@@ -274,7 +251,7 @@ function Project() {
                       </span>
                     </div>
 
-                    <h3 className="text-white text-lg md:text-2xl font-semibold">
+                    <h3 className="text-white text-lg md:text-3xl font-semibold">
                       {project.title}
                     </h3>
                     <p className="text-zinc-300 mt-2 text-sm md:text-base">
@@ -358,7 +335,7 @@ function Project() {
                           width={1000}
                           height={1000}
                           quality={100}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-contain"
                         />
                       ) : null}
                     </div>
