@@ -9,7 +9,7 @@ const BASE_BG_COLOR = "#28292E";
 
 const SCENE_COLOR_BY_ID: Record<string, string> = {
   "project-intro-scene": "#28292D",
-  "project-scene-0": "#28292D",
+  "project-scene-0": "#ee8d8d",
   "project-scene-1": "#1F2430",
   "project-scene-2": "#202A3A",
   "project-scene-3": "#1E2F2B",
@@ -33,9 +33,13 @@ const SCENE_BACKGROUNDS: Partial<Record<string, SceneBackground>> = {
   },
   "project-scene-0": {
     type: "image",
-    src: "/images/projectScene/catSimul_bg-cafe.jpg",
+    src: "/images/projectScene/project-scene-0_bg.png",
   },
-  // "project-scene-1": { type: "image", src: "/images/bg/scene1.jpg" },
+  // "project-scene-1": { type: "image", src: "/images/projectScene/project-scene-1_bg.jpg" },
+  "project-scene-2": {
+    type: "image",
+    src: "/images/projectScene/project-scene-2_bg.jpg",
+  },
 };
 
 const getSceneColor = (scene: HTMLElement) =>
