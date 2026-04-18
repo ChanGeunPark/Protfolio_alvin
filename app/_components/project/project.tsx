@@ -139,25 +139,6 @@ const allProjects: ProjectItem[] = [
   },
   {
     organization: "에듀에듀",
-    title: "ANDNEW",
-    oneLine: "작품 구매 및 대여가 가능한 쇼핑몰 서비스",
-    role: "디자인, 퍼블리싱, 프론트엔드 개발, 데이터 연동 담당",
-    contributions: [
-      "페이지 디자인/퍼블리싱 및 데이터 구조 연동",
-      "구매/대여 흐름의 화면 UX 구성",
-    ],
-    achievements: [
-      "판매와 렌트 기능이 가능한 서비스 구조 구현",
-      "상품 전시와 구매 흐름을 고려한 사용자 화면 구성",
-    ],
-    tech: ["DB 설계", "웹 퍼블리싱", "프론트엔드 개발"],
-    imageHint: "ANDNEW 쇼핑몰 화면 이미지",
-    videoUrl: null,
-    imageUrl:
-      "https://imagedelivery.net/anvL-_ABM0Z5KQo2YmJX4g/4afacb8d-94b7-4580-0ce1-336858d8a900/public",
-  },
-  {
-    organization: "에듀에듀",
     title: "에듀키즈",
     oneLine: "유치원·어린이집 대상 홈페이지 플랫폼 구축 프로젝트",
     role: "디자인, 퍼블리싱, 프론트엔드 개발 및 일부 데이터 연동 담당",
@@ -175,6 +156,26 @@ const allProjects: ProjectItem[] = [
     imageUrl:
       "https://imagedelivery.net/anvL-_ABM0Z5KQo2YmJX4g/d3bce1bb-1dc2-47e2-09c4-2b2af2340e00/public",
   },
+  {
+    organization: "에듀에듀",
+    title: "ANDNEW",
+    oneLine: "작품 구매 및 대여가 가능한 쇼핑몰 서비스",
+    role: "디자인, 퍼블리싱, 프론트엔드 개발, 데이터 연동 담당",
+    contributions: [
+      "페이지 디자인/퍼블리싱 및 데이터 구조 연동",
+      "구매/대여 흐름의 화면 UX 구성",
+    ],
+    achievements: [
+      "판매와 렌트 기능이 가능한 서비스 구조 구현",
+      "상품 전시와 구매 흐름을 고려한 사용자 화면 구성",
+    ],
+    tech: ["DB 설계", "웹 퍼블리싱", "프론트엔드 개발"],
+    imageHint: "ANDNEW 쇼핑몰 화면 이미지",
+    videoUrl: null,
+    imageUrl:
+      "https://imagedelivery.net/anvL-_ABM0Z5KQo2YmJX4g/4afacb8d-94b7-4580-0ce1-336858d8a900/public",
+  },
+
   {
     organization: "에듀에듀",
     title: "Wekeep",

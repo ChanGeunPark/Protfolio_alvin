@@ -15,7 +15,7 @@ export default function Home() {
         <Navigation />
         <ProjectBackground />
         <SmoothScroll smoothness={1}>
-          {/* <IntroLoader /> */}
+          <IntroLoader />
           <About /> {/* 소개 */}
           <Career /> {/* 경력 */}
           <Project /> {/* 프로젝트 */}

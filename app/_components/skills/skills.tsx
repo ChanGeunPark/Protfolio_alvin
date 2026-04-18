@@ -75,11 +75,8 @@ function Skills() {
   useSkillsSceneMotion();
 
   return (
-    <section data-skills-section className="bg-[#28292D] relative">
-      <div
-        data-skills-viewport
-        className="h-screen overflow-hidden border-y border-white/10"
-      >
+    <section data-skills-section className="relative">
+      <div data-skills-viewport className="h-screen overflow-hidden">
         <div className="h-full flex items-center">
           <div
             data-skills-track

@@ -74,7 +74,9 @@ export function animateSkillsScene({
   };
 
   ScrollTrigger.addEventListener("refreshInit", handleRefreshInit);
-  ScrollTrigger.refresh();
+  requestAnimationFrame(() => {
+    ScrollTrigger.refresh();
+  });
 
   return () => {
     ScrollTrigger.removeEventListener("refreshInit", handleRefreshInit);

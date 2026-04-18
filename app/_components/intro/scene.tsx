@@ -11,7 +11,7 @@ import type { BoxTextureId } from "./types";
 export function IntroScene({ boxTexture }: { boxTexture: BoxTextureId }) {
   return (
     <>
-      <Environment preset="studio" environmentIntensity={0.5} />
+      <Environment preset="studio" environmentIntensity={0.35} />
       <Stars />
       {/* <ambientLight intensity={0.2} /> */}
       <hemisphereLight
@@ -23,7 +23,6 @@ export function IntroScene({ boxTexture }: { boxTexture: BoxTextureId }) {
         angle={0.22}
         penumbra={1}
         position={[30, 30, 30]}
-        castShadow
         shadow-mapSize={[512, 512]}
       />
       <PointerLight />

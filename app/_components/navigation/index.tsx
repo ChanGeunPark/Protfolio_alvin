@@ -36,7 +36,6 @@ function Navigation() {
             <Link href="/">Home</Link>
             <Link href="/">About</Link>
             <Link href="/">Experience</Link>
-            <Link href="/">Story</Link>
             <Link href="/">Contact</Link>
           </div>
         </nav>

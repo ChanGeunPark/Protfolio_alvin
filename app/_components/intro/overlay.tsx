@@ -69,7 +69,6 @@ export function IntroOverlay({ onCycleTexture }: IntroOverlayProps) {
           </span>
         </div>
       </article>
-      <span className="pointer-events-none absolute bottom-0 left-0 z-20 block h-[100px] w-full bg-gradient-to-t from-[#28292E] to-transparent" />
     </>
   );
 }

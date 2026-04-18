@@ -17,6 +17,14 @@ function Career() {
         "교육 플랫폼과 서비스 구축 과정에서 기획, 디자인, 퍼블리싱, 프론트엔드, 데이터베이스 설정까지 경험하며 비즈니스 전반의 개발 플로우를 익혔습니다.",
     },
     {
+      company: "이젠아카데미 (교육)",
+      tags: ["2020.01 ~ 2020.06", "UI/UX 웹디자인", "웹퍼블리셔", "교육"],
+      description: `UI/UX 웹디자인(웹퍼블리셔) 과정을 통해 사용자 리서치,
+              와이어프레임/프로토타입 제작, 사용성 테스트를 기반으로 한 화면
+              설계 역량을 익혔고, 웹 퍼블리싱과 Bootstrap 기반 반응형 UI
+              구현까지 경험하며 프론트엔드 실무 기초를 체계적으로 쌓았습니다.`,
+    },
+    {
       company: "(주)교원",
       tags: ["2017.04 ~ 2017.06", "디자이너", "인턴"],
       description:
@@ -44,28 +52,6 @@ function Career() {
               </div>
             </div>
           ))}
-        </div>
-      </div>
-      <div className="container px-3 mx-auto mt-16">
-        <h2 className="text-white text-2xl font-bold">교육</h2>
-        <div className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 z-30 mt-4">
-          <div className="text-zinc-100 relative z-10">
-            <h3 className="font-bold text-lg mb-4 text-approveSub">
-              이젠아카데미
-            </h3>
-            <p className="opacity-80 leading-relaxed">
-              UI/UX 웹디자인(웹퍼블리셔) 과정을 통해 사용자 리서치,
-              와이어프레임/프로토타입 제작, 사용성 테스트를 기반으로 한 화면
-              설계 역량을 익혔고, 웹 퍼블리싱과 Bootstrap 기반 반응형 UI
-              구현까지 경험하며 프론트엔드 실무 기초를 체계적으로 쌓았습니다.
-            </p>
-
-            <div className="flex gap-2 mt-4">
-              <AlvinBadge BadgeStyle="BLACK" BadgeSize="SMALL">
-                2020.01 ~ 2020.06
-              </AlvinBadge>
-            </div>
-          </div>
         </div>
       </div>
     </section>
