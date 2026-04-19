@@ -2,7 +2,7 @@ import About from "./_components/about/about";
 import Career from "./_components/career/career";
 import Contact from "./_components/contact/contact";
 import IntroLoader from "./_components/intro-loader";
-import LoadingScreen from "./_components/loading/loading-screen";
+import LoadingScreen from "./_components/loading";
 import Navigation from "./_components/navigation";
 import Project from "./_components/project/project";
 import ProjectBackground from "./_components/project/projectBackground";

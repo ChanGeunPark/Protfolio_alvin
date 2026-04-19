@@ -35,6 +35,18 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        {/* Server-rendered dark cover — appears instantly, hidden once the
+            client-side LoadingScreen mounts and takes over. */}
+        <div
+          id="__loading-cover"
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 9998,
+            background: "#1c1d21",
+            pointerEvents: "none",
+          }}
+        />
         <ModalProvider>{children}</ModalProvider>
       </body>
     </html>

@@ -37,6 +37,7 @@ function useAnimatedCount(target: number) {
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [target]);
 
   return count;
@@ -44,11 +45,45 @@ function useAnimatedCount(target: number) {
 
 const EASE_CURTAIN = [0.76, 0, 0.24, 1] as const;
 
+type Star = {
+  id: number;
+  x: number;
+  y: number;
+  size: number;
+  opacity: number;
+  dur: number;
+  delay: number;
+};
+
+// This module is loaded only on the client (ssr: false in page.tsx),
+// so Math.random() here never runs on the server and causes no hydration mismatch.
+function mkStars(n: number): Star[] {
+  return Array.from({ length: n }, (_, i) => ({
+    id: i,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    size: Math.random() * 2 + 0.4,
+    opacity: Math.random() * 0.6 + 0.15,
+    dur: Math.random() * 4 + 2,
+    delay: Math.random() * 5,
+  }));
+}
+
+const LEFT_STARS = mkStars(80);
+const RIGHT_STARS = mkStars(80);
+
 export default function LoadingScreen() {
   const { progress } = useProgress();
   const displayCount = useAnimatedCount(Math.round(progress));
   const [isExiting, setIsExiting] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+
+  // Hide the server-rendered cover div the moment this component mounts,
+  // so the animated LoadingScreen takes over without any gap.
+  useEffect(() => {
+    const cover = document.getElementById("__loading-cover");
+    if (cover) cover.style.display = "none";
+  }, []);
 
   useEffect(() => {
     if (progress < 100) return;
@@ -75,25 +110,61 @@ export default function LoadingScreen() {
     <div className="pointer-events-none fixed inset-0 z-9999 overflow-hidden">
       {/* Left curtain panel */}
       <motion.div
-        className="absolute inset-y-0 left-0 w-1/2 bg-[#1c1d21]"
+        className="absolute inset-y-0 left-0 w-1/2 overflow-hidden bg-[#1c1d21]"
         animate={isExiting ? { x: "-100%" } : { x: 0 }}
         transition={{
           duration: 0.95,
           ease: EASE_CURTAIN,
           delay: isExiting ? 0.05 : 0,
         }}
-      />
+      >
+        {LEFT_STARS.map((s) => (
+          <motion.div
+            key={s.id}
+            className="absolute rounded-full bg-white"
+            style={{
+              left: `${s.x}%`,
+              top: `${s.y}%`,
+              width: s.size,
+              height: s.size,
+            }}
+            initial={{ opacity: s.opacity * 0.25 }}
+            animate={{
+              opacity: [s.opacity * 0.25, s.opacity, s.opacity * 0.25],
+            }}
+            transition={{ duration: s.dur, repeat: Infinity, delay: s.delay }}
+          />
+        ))}
+      </motion.div>
 
       {/* Right curtain panel */}
       <motion.div
-        className="absolute inset-y-0 right-0 w-1/2 bg-[#1c1d21]"
+        className="absolute inset-y-0 right-0 w-1/2 overflow-hidden bg-[#1c1d21]"
         animate={isExiting ? { x: "100%" } : { x: 0 }}
         transition={{
           duration: 0.95,
           ease: EASE_CURTAIN,
           delay: isExiting ? 0.05 : 0,
         }}
-      />
+      >
+        {RIGHT_STARS.map((s) => (
+          <motion.div
+            key={s.id}
+            className="absolute rounded-full bg-white"
+            style={{
+              left: `${s.x}%`,
+              top: `${s.y}%`,
+              width: s.size,
+              height: s.size,
+            }}
+            initial={{ opacity: s.opacity * 0.25 }}
+            animate={{
+              opacity: [s.opacity * 0.25, s.opacity, s.opacity * 0.25],
+            }}
+            transition={{ duration: s.dur, repeat: Infinity, delay: s.delay }}
+          />
+        ))}
+      </motion.div>
 
       {/* Vertical seam glow */}
       <motion.div

@@ -161,7 +161,7 @@ export default function Contact() {
                   name="name"
                   value={form.name}
                   onChange={handleChange}
-                  placeholder="Park Changeun"
+                  placeholder="박찬근"
                   className={inputCls}
                   required
                 />
