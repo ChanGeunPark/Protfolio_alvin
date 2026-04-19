@@ -20,7 +20,11 @@ function Project() {
   };
 
   return (
-    <section data-project-section className="relative min-h-screen md:py-28">
+    <section
+      id="project"
+      data-project-section
+      className="relative min-h-screen md:py-28"
+    >
       <div className="mx-auto">
         {/* 프로젝트 타이틀 */}
         <ProjectIntroScene />

@@ -57,7 +57,7 @@ export default function Intro() {
   }, []);
 
   return (
-    <div className="">
+    <div id="home" className="">
       <div ref={containerRef} className="relative h-screen w-full">
         {isInViewport ? (
           <Suspense

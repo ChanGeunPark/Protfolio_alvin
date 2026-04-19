@@ -23,7 +23,7 @@ function About() {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
+    <section id="about" className="relative min-h-screen flex items-center overflow-hidden">
       {/* Background illustration */}
       {/* <span className="absolute right-0 top-1/2 -translate-y-1/2 z-0 opacity-50 pointer-events-none">
         <Image

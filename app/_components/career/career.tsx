@@ -33,7 +33,7 @@ function Career() {
   ];
 
   return (
-    <section className="relative py-20">
+    <section id="experience" className="relative py-20">
       <div className="container px-3 mx-auto">
         <h2 className="text-white text-2xl font-bold">커리어</h2>
         <div className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 z-30 mt-4">
