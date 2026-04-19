@@ -26,7 +26,7 @@ function Project() {
     <section
       id="project"
       data-project-section
-      className="relative min-h-screen md:py-28"
+      className="relative min-h-screen md:py-28 overflow-hidden"
     >
       <div className="mx-auto">
         {/* 프로젝트 타이틀 */}
