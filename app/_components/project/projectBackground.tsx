@@ -243,13 +243,6 @@ const ProjectBackground = () => {
           }}
           allowFullScreen
         />
-        {/* <Image
-          src="/images/projectScene/bg_main.png"
-          alt=""
-          fill
-          className={cls("object-cover h-full w-full blur-[4px]")}
-          priority
-        /> */}
       </div>
 
       {(Object.entries(SCENE_BACKGROUNDS) as [string, SceneBackground][]).map(

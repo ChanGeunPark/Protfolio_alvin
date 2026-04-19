@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ModalProvider } from "@/components/common/modal";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -34,7 +35,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
-        {children}
+        <ModalProvider>{children}</ModalProvider>
       </body>
     </html>
   );

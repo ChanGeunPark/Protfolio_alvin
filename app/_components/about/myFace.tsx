@@ -9,6 +9,10 @@ const ACCENT_B = 0xbd;
 
 const IMG_SRC = "/images/aboutScene/myFace2.png";
 
+const RIPPLE_DURATION_MS = 1000;
+/** Max scale bump at ripple crest (1 + this at peak). */
+const RIPPLE_GLYPH_SCALE_BUMP = 0.48;
+
 const DARK = ["@", "#", "$", "M", "W"] as const;
 const MID = ["x", "z", "c", "v", "i"] as const;
 const BRIGHT = [".", ",", "'"] as const;
@@ -92,6 +96,8 @@ function isBackgroundWall(
 
 type PointerState = { inside: boolean; nx: number; ny: number };
 
+type RippleState = { nx: number; ny: number; start: number };
+
 function MyFace() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -101,7 +107,16 @@ function MyFace() {
     nx: 0.5,
     ny: 0.5,
   });
+  const rippleRef = useRef<RippleState | null>(null);
   const rafPaintRef = useRef<number | null>(null);
+  const rippleRafRef = useRef<number | null>(null);
+  const lastCanvasSizeRef = useRef<{ cssW: number; cssH: number; dpr: number }>(
+    {
+      cssW: 0,
+      cssH: 0,
+      dpr: 0,
+    },
+  );
 
   const paint = useCallback(() => {
     const container = containerRef.current;
@@ -154,10 +169,16 @@ function MyFace() {
     const cssW = targetCols * charWidth;
     const cssH = rows * lineHeight;
 
-    canvas.style.width = `${cssW}px`;
-    canvas.style.height = `${cssH}px`;
-    canvas.width = Math.max(1, Math.floor(cssW * dpr));
-    canvas.height = Math.max(1, Math.floor(cssH * dpr));
+    const wPx = Math.max(1, Math.floor(cssW * dpr));
+    const hPx = Math.max(1, Math.floor(cssH * dpr));
+    const prev = lastCanvasSizeRef.current;
+    if (prev.cssW !== cssW || prev.cssH !== cssH || prev.dpr !== dpr) {
+      canvas.style.width = `${cssW}px`;
+      canvas.style.height = `${cssH}px`;
+      canvas.width = wPx;
+      canvas.height = hPx;
+      lastCanvasSizeRef.current = { cssW, cssH, dpr };
+    }
 
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.scale(dpr, dpr);
@@ -180,6 +201,19 @@ function MyFace() {
     if (pointer.inside) {
       ptrX = pointer.nx * cssW;
       ptrY = pointer.ny * cssH;
+    }
+
+    const ripple = rippleRef.current;
+    let rippleT = 0;
+    let ripCx = 0;
+    let ripCy = 0;
+    let maxRippleR = 1;
+    if (ripple) {
+      const elapsed = performance.now() - ripple.start;
+      rippleT = Math.min(1, elapsed / RIPPLE_DURATION_MS);
+      ripCx = ripple.nx * cssW;
+      ripCy = ripple.ny * cssH;
+      maxRippleR = Math.hypot(cssW, cssH) * 0.82;
     }
 
     ctx.textAlign = "center";
@@ -232,12 +266,35 @@ function MyFace() {
           proximity = linear * linear;
         }
 
-        const gr = Math.round(255 + (ACCENT_R - 255) * proximity);
-        const gg = Math.round(255 + (ACCENT_G - 255) * proximity);
-        const gb = Math.round(255 + (ACCENT_B - 255) * proximity);
+        let rippleBoost = 0;
+        if (ripple && maxRippleR > 1) {
+          const d = Math.hypot(cellCX - ripCx, cellCY - ripCy);
+          const waveR = rippleT * maxRippleR;
+          const band = Math.max(12, maxRippleR * 0.052);
+          const delta = (d - waveR) / band;
+          const ring = Math.exp(-delta * delta);
+          const fade = 1 - rippleT * rippleT;
+          rippleBoost = ring * ring * fade;
+        }
+
+        const proximityCombined = Math.min(1, proximity + rippleBoost);
+
+        const gr = Math.round(255 + (ACCENT_R - 255) * proximityCombined);
+        const gg = Math.round(255 + (ACCENT_G - 255) * proximityCombined);
+        const gb = Math.round(255 + (ACCENT_B - 255) * proximityCombined);
 
         ctx.fillStyle = `rgba(${gr},${gg},${gb},${alpha})`;
-        ctx.fillText(ch, cellCX, cellCY);
+
+        const glyphScale = 1 + RIPPLE_GLYPH_SCALE_BUMP * rippleBoost;
+        if (glyphScale > 1.004) {
+          ctx.save();
+          ctx.translate(cellCX, cellCY);
+          ctx.scale(glyphScale, glyphScale);
+          ctx.fillText(ch, 0, 0);
+          ctx.restore();
+        } else {
+          ctx.fillText(ch, cellCX, cellCY);
+        }
       }
     }
   }, []);
@@ -269,11 +326,35 @@ function MyFace() {
     });
   }, [paint]);
 
+  const startRippleLoop = useCallback(() => {
+    const step = () => {
+      const rip = rippleRef.current;
+      if (!rip) {
+        rippleRafRef.current = null;
+        return;
+      }
+      const elapsed = performance.now() - rip.start;
+      if (elapsed >= RIPPLE_DURATION_MS) {
+        rippleRef.current = null;
+        rippleRafRef.current = null;
+        paint();
+        return;
+      }
+      paint();
+      rippleRafRef.current = requestAnimationFrame(step);
+    };
+    rippleRafRef.current = requestAnimationFrame(step);
+  }, [paint]);
+
   useEffect(() => {
     return () => {
       if (rafPaintRef.current != null) {
         cancelAnimationFrame(rafPaintRef.current);
         rafPaintRef.current = null;
+      }
+      if (rippleRafRef.current != null) {
+        cancelAnimationFrame(rippleRafRef.current);
+        rippleRafRef.current = null;
       }
     };
   }, []);
@@ -286,7 +367,7 @@ function MyFace() {
       >
         <canvas
           ref={canvasRef}
-          className="block mx-auto"
+          className="block mx-auto cursor-pointer"
           role="img"
           aria-label="ASCII text portrait"
           onPointerEnter={() => {
@@ -295,6 +376,23 @@ function MyFace() {
           onPointerLeave={() => {
             pointerRef.current.inside = false;
             schedulePaint();
+          }}
+          onPointerDown={(e) => {
+            if (e.button !== 0) return;
+            const canvas = canvasRef.current;
+            if (!canvas) return;
+            const rect = canvas.getBoundingClientRect();
+            if (rect.width < 1 || rect.height < 1) return;
+            rippleRef.current = {
+              nx: (e.clientX - rect.left) / rect.width,
+              ny: (e.clientY - rect.top) / rect.height,
+              start: performance.now(),
+            };
+            if (rippleRafRef.current != null) {
+              cancelAnimationFrame(rippleRafRef.current);
+              rippleRafRef.current = null;
+            }
+            startRippleLoop();
           }}
           onPointerMove={(e) => {
             const canvas = canvasRef.current;

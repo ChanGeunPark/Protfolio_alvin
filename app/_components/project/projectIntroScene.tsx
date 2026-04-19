@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 
-const IMAGE_COUNT = 30;
+const IMAGE_COUNT = 40;
 const GRAVITY = 900;
 const AIR_DRAG = 0.999;
 const FLOOR_RESTITUTION = 0.46;
@@ -451,7 +451,7 @@ function ProjectIntroScene() {
         ))}
       </div>
 
-      <h2 className="relative z-10 text-[80px] font-bold text-white pointer-events-none">
+      <h2 className="relative z-10 text-[80px] font-bold text-white pointer-events-none text-shadow-[0_0_20px_rgba(0,0,0,1)]">
         Projects
       </h2>
       <p className="relative z-10 mt-2 text-sm text-white opacity-50 md:text-base pointer-events-none">
