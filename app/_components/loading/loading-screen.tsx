@@ -1,5 +1,6 @@
 "use client";
 
+import { ScrollSmoother } from "@/lib/gsap/client";
 import { useProgress } from "@react-three/drei";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
@@ -84,6 +85,33 @@ export default function LoadingScreen() {
     const cover = document.getElementById("__loading-cover");
     if (cover) cover.style.display = "none";
   }, []);
+
+  // Scroll to top + lock scroll while loading
+  useEffect(() => {
+    // Prevent browser from restoring previous scroll position on refresh
+    if (typeof history !== "undefined") {
+      history.scrollRestoration = "manual";
+    }
+    window.scrollTo(0, 0);
+
+    // Lock native scroll
+    document.body.style.overflow = "hidden";
+
+    // Also pause ScrollSmoother if already initialized
+    const smoother = ScrollSmoother.get();
+    if (smoother) {
+      smoother.paused(true);
+      smoother.scrollTo(0, false);
+    }
+  }, []);
+
+  // Unlock scroll when loading is fully done
+  useEffect(() => {
+    if (!isHidden) return;
+    document.body.style.overflow = "";
+    const s = ScrollSmoother.get();
+    if (s) s.paused(false);
+  }, [isHidden]);
 
   useEffect(() => {
     if (progress < 100) return;

@@ -4,6 +4,7 @@ import Image from "next/image";
 import type { ProjectItem } from "./data/projects";
 import { HiExternalLink } from "react-icons/hi";
 import { FaGithub } from "react-icons/fa";
+import { getStreamEmbedUrl } from "@/lib/utils";
 
 interface Props {
   project: ProjectItem;
@@ -28,6 +29,39 @@ export default function ProjectDetailModal({ project }: Props) {
       )}
 
       <div className="relative z-10 p-6 md:p-8 lg:p-10 space-y-8">
+        {(project.videoUrl || project.imageUrl) && (
+          <div className="w-[80%] mx-auto overflow-hidden rounded-2xl shadow-elevation02">
+            {project.videoUrl ? (
+              <div
+                className="relative w-full"
+                style={{ aspectRatio: "16/9" }}
+              >
+                <iframe
+                  src={getStreamEmbedUrl(project.videoUrl)}
+                  className="absolute inset-0 h-full w-full rounded-xl border-0"
+                  title={`${project.title} 미리보기 동영상`}
+                  allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                  allowFullScreen
+                  loading="lazy"
+                />
+              </div>
+            ) : project.imageUrl ? (
+              <div
+                className="relative w-full"
+                style={{ aspectRatio: "16/9" }}
+              >
+                <Image
+                  src={project.imageUrl}
+                  alt="프로젝트 미리보기"
+                  fill
+                  quality={90}
+                  className="object-cover"
+                />
+              </div>
+            ) : null}
+          </div>
+        )}
+
         {/* 헤더 */}
         <div className="space-y-3">
           <div className="flex flex-wrap items-center gap-2">
@@ -44,7 +78,9 @@ export default function ProjectDetailModal({ project }: Props) {
               >
                 <span
                   className={`w-1.5 h-1.5 rounded-full ${
-                    project.isLive ? "bg-emerald-400 animate-pulse" : "bg-zinc-500"
+                    project.isLive
+                      ? "bg-emerald-400 animate-pulse"
+                      : "bg-zinc-500"
                   }`}
                 />
                 {project.isLive ? "서비스 중" : "서비스 종료"}
@@ -139,7 +175,10 @@ export default function ProjectDetailModal({ project }: Props) {
         <Section title="주요 기여">
           <ul className="space-y-2">
             {project.contributions.map((item) => (
-              <li key={item} className="flex items-start gap-2.5 text-sm text-zinc-300">
+              <li
+                key={item}
+                className="flex items-start gap-2.5 text-sm text-zinc-300"
+              >
                 <span className="mt-1 shrink-0 w-4 h-4 rounded-full bg-violet-500/20 ring-1 ring-violet-500/40 flex items-center justify-center">
                   <span className="w-1.5 h-1.5 rounded-full bg-violet-400" />
                 </span>
@@ -153,7 +192,10 @@ export default function ProjectDetailModal({ project }: Props) {
         <Section title="성과">
           <ol className="space-y-2">
             {project.achievements.map((item, i) => (
-              <li key={item} className="flex items-start gap-3 text-sm text-zinc-300">
+              <li
+                key={item}
+                className="flex items-start gap-3 text-sm text-zinc-300"
+              >
                 <span className="shrink-0 w-5 h-5 rounded-md bg-amber-500/20 text-amber-400 text-xs font-bold flex items-center justify-center ring-1 ring-amber-500/30 mt-0.5">
                   {i + 1}
                 </span>

@@ -1,10 +1,11 @@
 "use client";
 
 import { ScrollSmoother } from "@/lib/gsap/client";
-import { cls } from "@/lib/utils";
+import { cls, getStreamEmbedUrl } from "@/lib/utils";
 import { useEffect, type ReactNode } from "react";
 import { HiOutlineX } from "react-icons/hi";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 
 export interface BasicModalProps {
   open: boolean;
@@ -14,6 +15,8 @@ export interface BasicModalProps {
   zIndex?: number;
   title?: ReactNode;
   className?: string;
+  videoUrl?: string | null;
+  imageUrl?: string | null;
 }
 
 export default function BasicModal(props: BasicModalProps) {
@@ -24,6 +27,8 @@ export default function BasicModal(props: BasicModalProps) {
     zIndex,
     className,
     isCloseButton = true,
+    videoUrl,
+    imageUrl,
   } = props;
 
   const z = zIndex ?? 99;
@@ -64,58 +69,71 @@ export default function BasicModal(props: BasicModalProps) {
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
-  if (!open) {
-    return null;
-  }
-
   return (
-    <>
-      <div
-        className={cls(
-          "max-w-[1200px] w-full fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
-          "p-4 flex justify-center items-center pointer-events-none",
-        )}
-        style={{ zIndex: z }}
-        role="presentation"
-      >
-        <div
-          role="dialog"
-          aria-modal="true"
-          className={cls(
-            "pointer-events-auto w-full min-h-[80vh] shadow-elevation02",
-            className,
-          )}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <button
-            type="button"
-            onClick={onClose}
+    <AnimatePresence>
+      {open && (
+        <>
+          <motion.div
             className={cls(
-              "shrink-0 rounded-lg p-2 -mr-1 -mt-1 cursor-pointer",
-              "absolute right-8 top-8 z-20",
-              "text-gray-300 hover:bg-white/10",
+              "max-w-[1200px] w-full fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
+              "p-4 flex justify-center items-center pointer-events-none",
             )}
-            aria-label="Close dialog"
+            style={{ zIndex: z }}
+            role="presentation"
+            initial={{ opacity: 0, y: 24, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 24, scale: 0.97 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           >
-            <HiOutlineX className="h-6 w-6" />
-          </button>
+            <div
+              role="dialog"
+              aria-modal="true"
+              className={cls(
+                "pointer-events-auto w-full min-h-[80vh] shadow-elevation02",
+                className,
+              )}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                type="button"
+                onClick={onClose}
+                className={cls(
+                  "shrink-0 rounded-lg p-2 -mr-1 -mt-1 cursor-pointer",
+                  "absolute right-8 top-8 z-20",
+                  "text-gray-300 hover:bg-white/10",
+                )}
+                aria-label="Close dialog"
+              >
+                <HiOutlineX className="h-6 w-6" />
+              </button>
 
-          <section className="h-full max-h-[80vh] overflow-y-auto rounded-2xl">
-            {children}
-          </section>
-        </div>
-      </div>
+              <section className="h-full max-h-[80vh] overflow-y-auto rounded-2xl">
+                {children}
+              </section>
+            </div>
+          </motion.div>
 
-      <motion.div
-        className={cls("fixed w-screen h-screen top-0 left-0")}
-        onClick={onClose}
-        role="presentation"
-        style={{ zIndex: z - 1 }}
-        initial={{ color: "rgba(0,0,0,0)", backdropFilter: "blur(0px)" }}
-        animate={{ color: "rgba(0,0,0,0.9)", backdropFilter: "blur(10px)" }}
-        exit={{ color: "rgba(0,0,0,0)", backdropFilter: "blur(0px)" }}
-        transition={{ duration: 0.1 }}
-      />
-    </>
+          <motion.div
+            className={cls("fixed w-screen h-screen top-0 left-0")}
+            onClick={onClose}
+            role="presentation"
+            style={{ zIndex: z - 1 }}
+            initial={{
+              backgroundColor: "rgba(0,0,0,0)",
+              backdropFilter: "blur(0px)",
+            }}
+            animate={{
+              backgroundColor: "rgba(0,0,0,0.75)",
+              backdropFilter: "blur(12px)",
+            }}
+            exit={{
+              backgroundColor: "rgba(0,0,0,0)",
+              backdropFilter: "blur(0px)",
+            }}
+            transition={{ duration: 0.35, ease: "easeInOut" }}
+          />
+        </>
+      )}
+    </AnimatePresence>
   );
 }

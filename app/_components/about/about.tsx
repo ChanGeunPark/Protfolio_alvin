@@ -23,24 +23,10 @@ function About() {
   ];
 
   return (
-    <section id="about" className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background illustration */}
-      {/* <span className="absolute right-0 top-1/2 -translate-y-1/2 z-0 opacity-50 pointer-events-none">
-        <Image
-          src="https://imagedelivery.net/anvL-_ABM0Z5KQo2YmJX4g/2df8ffb4-eb06-4938-b481-5d40a7db5600/public"
-          alt="background"
-          width={1000}
-          height={1000}
-          className="w-full h-full object-cover"
-        />
-      </span> */}
-
-      {/* Gradient overlays for readability */}
-      {/* <div className="absolute inset-0 z-1 bg-linear-to-r from-[#28292e] via-[#28292e]/85 to-transparent pointer-events-none" />
-      <div className="absolute bottom-0 left-0 right-0 h-40 z-1 bg-linear-to-t from-[#28292e] to-transparent pointer-events-none" />
-      <div className="absolute top-0 left-0 right-0 h-32 z-1 bg-linear-to-b from-[#28292e] to-transparent pointer-events-none" />
-       */}
-
+    <section
+      id="about"
+      className="relative min-h-screen flex items-center overflow-hidden"
+    >
       <article className="container px-6 mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 z-10 py-24">
         {/* Left — text content */}
         <div className="flex flex-col justify-center">
