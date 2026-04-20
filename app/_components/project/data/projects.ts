@@ -44,16 +44,19 @@ export const allProjects: ProjectItem[] = [
     siteUrl: undefined,
     githubUrl: undefined,
     highlights: [
-      "프론트엔드 전반 90% 담당",
+      "프론트엔드 전반 90% 담당 및 Pages Router 기반 앱 구조 설계",
+      "SSR/ISR, Apollo 캐시, lazy query로 페이지 특성별 데이터 로딩 최적화",
       "일 10만 회 이상 AI 채팅 요청 서비스 운영",
-      "LangChain + Azure OpenAI 기반 캐릭터 채팅 구현",
-      "GraphQL Codegen과 Zustand로 타입/상태 구조 정리",
+      "GraphQL Codegen과 Zustand 도메인 스토어로 타입/상태 구조 정리",
+      "Flutter로 웹앱화하여 스토어 배포",
     ],
     contributions: [
-      "프론트엔드 구조 설계 및 개발",
+      "pages, components, lib 디렉터리 역할을 분리해 화면/도메인/인프라 레이어 구조 설계",
+      "_app.tsx 앱 셸에서 PWA, SessionProvider, ApolloClientLayout, 네비게이션, 콘텐츠 레이아웃 조립",
       "AI 캐릭터 채팅 기능 기획 및 구현",
-      "GraphQL Codegen 및 도메인별 커스텀 훅 패턴 정리",
-      "Zustand 기반 전역 상태 구조 정리",
+      "GraphQL Codegen 및 도메인별 Apollo 커스텀 훅 패턴 정리",
+      "Zustand 기반 content, ui, user, notification 도메인 스토어 구조 정리",
+      "NextSeo 기반 SEO 메타, next-sitemap, next/image 공통 이미지 컴포넌트 구성",
       "FCM 웹 푸시, 결제, 관리자 기능 연계",
       "Flutter로 웹앱화하여 스토어 배포",
     ],
@@ -62,8 +65,13 @@ export const allProjects: ProjectItem[] = [
       "LangChain + Azure OpenAI 기반 캐릭터 채팅 기능 구현",
       "채팅방 생성/저장/불러오기/토큰 차감 및 충전 흐름 구축",
       "일 10만 회 이상의 AI 채팅 요청이 발생하는 서비스 운영",
-      "GraphQL Codegen 기반 생산성과 타입 안정성 향상",
-      "상태 구조 정리로 페이지 간 일관성과 유지보수성 개선",
+      "GraphQL Codegen 기반 gql 클라이언트 프리셋을 도입해 쿼리 타입 안정성과 생산성 향상",
+      "세션/로컬 토큰 변화에 맞춰 Apollo 클라이언트를 갱신해 인증 상태와 API 클라이언트 동기화",
+      "SSR과 ISR(revalidate)을 페이지 성격에 맞게 적용해 첫 페인트, SEO, 데이터 최신성 균형 확보",
+      "page/count 기반 공통 그리드와 BrowseScroller 무한 스크롤로 목록 초기 로딩량 감소",
+      "AI 피드 스크롤/데이터 보존을 Zustand 스토어로 관리해 화면 이동 후에도 탐색 맥락 유지",
+      "next/script afterInteractive 전략과 next/image 기반 공통 ImageBox로 초기 로딩 비용 완화",
+      "PWA manifest/service worker 설정 구조를 마련하고 배포 플래그로 활성화 여부를 제어할 수 있게 구성",
     ],
     tech: [
       "Next.js 13",
@@ -72,9 +80,13 @@ export const allProjects: ProjectItem[] = [
       "Flutter",
       "Apollo Client",
       "GraphQL",
+      "GraphQL Codegen",
       "Zustand",
       "Tailwind CSS",
       "NextAuth",
+      "NextSeo",
+      "next-sitemap",
+      "next-pwa",
       "Firebase FCM",
       "LangChain",
       "Azure OpenAI",
@@ -84,19 +96,34 @@ export const allProjects: ProjectItem[] = [
     ],
     techReasons: [
       {
-        tech: "Next.js 13",
+        tech: "Next.js 13 Pages Router",
         reason:
-          "SSR/SSG를 통한 SEO 최적화와 App Router 기반 파일 시스템 라우팅으로 개발 생산성 향상",
+          "페이지별 SSR/ISR 전략을 적용해 에피소드, AI, 커뮤니티처럼 크롤러 대응과 초기 데이터가 중요한 화면을 유연하게 구성",
       },
       {
         tech: "GraphQL + Apollo Client",
         reason:
-          "백엔드와의 타입 안정성 확보 및 필요한 데이터만 요청하는 효율적인 데이터 패칭",
+          "InMemoryCache, 인증/업로드 링크, lazy query, fetchPolicy를 조합해 인증 상태와 데이터 패칭 전략을 한 계층에서 관리",
+      },
+      {
+        tech: "GraphQL Codegen",
+        reason:
+          "스키마와 문서 기반으로 gql 클라이언트 타입을 생성해 쿼리 작성 시 타입 안정성과 자동완성 경험을 확보",
       },
       {
         tech: "Zustand",
         reason:
-          "Redux 대비 보일러플레이트가 적고, 컴포넌트 외부에서도 상태 접근이 용이해 채팅 상태 관리에 적합",
+          "AI 피드, 스크롤 위치, 사용자/알림/UI 상태처럼 페이지 간 보존이 필요한 클라이언트 상태를 도메인별로 가볍게 분리",
+      },
+      {
+        tech: "NextSeo + next-sitemap",
+        reason:
+          "공유/검색 메타와 사이트맵 설정을 공통 모듈로 관리해 콘텐츠 페이지의 SEO 대응을 일관되게 유지",
+      },
+      {
+        tech: "next/image + next/script",
+        reason:
+          "공통 ImageBox와 외부 이미지 도메인 설정으로 이미지 최적화 파이프라인을 활용하고, GA 스크립트는 afterInteractive로 초기 로딩 부담을 완화",
       },
       {
         tech: "Flutter",
@@ -110,13 +137,32 @@ export const allProjects: ProjectItem[] = [
           "ReadableStream을 청크 단위로 처리하고, React 상태 업데이트를 requestAnimationFrame으로 배치 처리하여 렌더링 안정화",
       },
       {
-        issue: "GraphQL Codegen 타입 자동 생성 시 빌드 시간이 길어지는 문제",
+        issue:
+          "인증 세션과 로컬 토큰 상태가 달라질 때 GraphQL 요청 헤더와 캐시 상태가 어긋날 수 있는 문제",
         solution:
-          "watch 모드와 캐싱 전략을 조합하고 변경된 파일만 재생성하도록 설정 분리",
+          "ApolloClientLayout에서 세션/토큰 변화에 맞춰 클라이언트를 재구성해 인증 컨텍스트와 API 클라이언트를 동기화",
+      },
+      {
+        issue:
+          "AI 피드와 탐색 목록이 커질수록 첫 요청량과 화면 복귀 시 맥락 손실이 커지는 문제",
+        solution:
+          "QueryGridLayout의 count/page 페이지네이션, BrowseScroller 무한 스크롤, Zustand 기반 피드/스크롤 보존 구조로 필요한 시점에만 데이터를 누적 로드",
+      },
+      {
+        issue:
+          "콘텐츠 페이지마다 SEO 메타와 데이터 로딩 방식이 달라 중복 구현과 유지보수 비용이 커질 수 있는 문제",
+        solution:
+          "DefaultHead/CustomSeo와 next-sitemap 설정으로 SEO 레이어를 모듈화하고, SSR/ISR/lazy query 패턴을 페이지 성격에 맞게 분리",
+      },
+      {
+        issue:
+          "PWA 설치/오프라인 대응 요구는 있었지만 빌드 환경에 따라 서비스 워커 활성화가 부담이 될 수 있는 문제",
+        solution:
+          "next-pwa, manifest, 서비스 워커 관련 설정 구조를 마련하되 next.config.js의 disable 플래그로 배포 시점에 토글 가능하게 구성",
       },
     ],
     retrospective:
-      "처음으로 단독 프론트엔드 개발자로 서비스 전체를 책임지며, 설계 결정 하나하나가 실제 사용자 경험에 직결된다는 것을 체감했습니다. 일 10만 건의 AI 요청을 안정적으로 처리하면서 성능 최적화와 견고한 상태 관리의 중요성을 깊이 이해하게 되었습니다.",
+      "처음으로 단독 프론트엔드 개발자로 서비스 전체를 책임지며, 단순히 화면을 만드는 것보다 디렉터리 구조, Provider 레이어, 데이터 패칭 전략, SEO, 상태 보존 방식이 장기적인 운영 품질을 좌우한다는 것을 배웠습니다. 일 10만 건 이상의 AI 요청이 발생하는 서비스를 운영하면서 SSR/ISR, Apollo 캐시, 무한 스크롤, Zustand 스토어 같은 선택들이 실제 사용자 경험과 유지보수성에 직접 연결된다는 점을 체감했습니다.",
     imageHint: "CHIZU COMICS 대표 화면 이미지",
     videoUrl:
       "https://iframe.videodelivery.net/e311c4b8b0ef0347e3c8718df1041e08",
@@ -130,7 +176,7 @@ export const allProjects: ProjectItem[] = [
     period: "2022.09 ~ 2023.08",
     members:
       "프론트엔드 1명, 백엔드 1명, 디자이너 1명, 기획자 2명, 테크리더 1명, 블록체인개발 1명",
-    contributionRate: "프론트엔드 전반 100%",
+    contributionRate: "프론트엔드 전반 60%",
     isLive: false,
     siteUrl: undefined,
     githubUrl: undefined,

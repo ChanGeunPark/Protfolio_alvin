@@ -130,21 +130,6 @@ export default function ProjectDetailModal({ project }: Props) {
           <InfoCard label="역할" value={project.role} colSpan />
         </div>
 
-        {/* 핵심 요약 */}
-        <Section title="핵심 요약">
-          <ul className="grid gap-2 md:grid-cols-2">
-            {project.highlights.map((item) => (
-              <li
-                key={item}
-                className="flex items-start gap-2.5 rounded-xl bg-white/5 p-3 text-sm text-zinc-300 ring-1 ring-white/8"
-              >
-                <span className="mt-1 shrink-0 w-1.5 h-1.5 rounded-full bg-approveSub" />
-                <span className="leading-relaxed">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </Section>
-
         {/* 기술 스택 */}
         <Section title="기술 스택">
           <div className="flex flex-wrap gap-2">
