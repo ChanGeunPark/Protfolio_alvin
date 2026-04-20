@@ -14,6 +14,10 @@ export function animateProjectScenes({
   scenes.forEach((scene, index) => {
     const card = scene.querySelector<HTMLElement>("[data-project-card]");
     const badge = scene.querySelector<HTMLElement>("[data-project-badge]");
+    const enterItems = scene.querySelectorAll<HTMLElement>(
+      "[data-project-enter]",
+    );
+    const media = scene.querySelector<HTMLElement>("[data-project-media]");
 
     if (!card) {
       return;
@@ -69,6 +73,48 @@ export function animateProjectScenes({
     const trigger = tl.scrollTrigger;
     if (trigger) {
       triggers.push(trigger);
+    }
+
+    // One-time stagger reveal for card content elements
+    if (enterItems.length > 0) {
+      gsap.set(enterItems, { opacity: 0, y: 18 });
+
+      const enterTrigger = ScrollTrigger.create({
+        trigger: scene,
+        start: "center bottom",
+        once: true,
+        onEnter: () => {
+          gsap.to(enterItems, {
+            opacity: 1,
+            y: 0,
+            duration: 0.45,
+            ease: "power2.out",
+            stagger: 0.07,
+          });
+        },
+      });
+      triggers.push(enterTrigger);
+    }
+
+    // One-time media fade-in + scale reveal
+    if (media) {
+      gsap.set(media, { opacity: 0, scale: 0.94 });
+
+      const mediaTrigger = ScrollTrigger.create({
+        trigger: scene,
+        start: "center bottom",
+        once: true,
+        onEnter: () => {
+          gsap.to(media, {
+            opacity: 1,
+            scale: 1,
+            duration: 0.6,
+            ease: "power2.out",
+            delay: 0.15,
+          });
+        },
+      });
+      triggers.push(mediaTrigger);
     }
   });
 

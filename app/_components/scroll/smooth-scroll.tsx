@@ -33,12 +33,15 @@ export default function SmoothScroll({
 
     initGsapClient();
 
+    const isTouchDevice =
+      "ontouchstart" in window || navigator.maxTouchPoints > 0;
+
     const smoother = ScrollSmoother.create({
       wrapper,
       content,
       smooth: smoothness,
       effects: false,
-      normalizeScroll: true,
+      normalizeScroll: !isTouchDevice,
       smoothTouch: disableOnTouch ? 0 : Math.max(0.1, smoothness * 0.5),
       ignoreMobileResize: true,
     });

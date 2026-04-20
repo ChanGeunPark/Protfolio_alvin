@@ -30,7 +30,10 @@ export default function ProjectCard({
       >
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-7 h-full">
           <div className="order-2 lg:order-1 min-h-0">
-            <div className="flex flex-wrap items-center gap-2 mb-3">
+            <div
+              data-project-enter
+              className="flex flex-wrap items-center gap-2 mb-3"
+            >
               <span
                 data-project-badge
                 className="inline-flex text-xs px-2.5 py-1 rounded-full bg-black/30 text-zinc-200"
@@ -42,15 +45,21 @@ export default function ProjectCard({
               </span>
             </div>
 
-            <h3 className="text-white text-lg md:text-3xl font-semibold">
+            <h3
+              data-project-enter
+              className="text-white text-lg md:text-3xl font-semibold"
+            >
               {project.title}
             </h3>
 
-            <p className="text-zinc-300 mt-2 text-sm md:text-base">
+            <p
+              data-project-enter
+              className="text-zinc-300 mt-2 text-sm md:text-base"
+            >
               {project.oneLine}
             </p>
 
-            <div className="grid grid-cols-2 gap-2 mt-4">
+            <div data-project-enter className="grid grid-cols-2 gap-2 mt-4">
               <ProjectMeta label="역할" value={project.role} wide />
               {project.period && (
                 <ProjectMeta label="기간" value={project.period} />
@@ -60,7 +69,7 @@ export default function ProjectCard({
               )}
             </div>
 
-            <div className="mt-4">
+            <div data-project-enter className="mt-4">
               <h4 className="text-zinc-100 text-sm md:text-base font-semibold mb-2">
                 핵심 요약
               </h4>
@@ -77,7 +86,7 @@ export default function ProjectCard({
               </ul>
             </div>
 
-            <div className="flex flex-wrap gap-2 mt-4">
+            <div data-project-enter className="flex flex-wrap gap-2 mt-4">
               {project.tech.slice(0, 6).map((tech) => (
                 <span
                   key={tech}
@@ -94,6 +103,7 @@ export default function ProjectCard({
             </div>
 
             <button
+              data-project-enter
               type="button"
               className={cls(
                 "group relative inline-flex items-center gap-2 text-approveSub font-semibold text-sm md:text-base rounded-md px-5 py-2 bg-gradient-to-r from-approveSub/20 via-white/5 to-approveSub/10 backdrop-blur-lg border border-approveSub/25 hover:bg-approveSub/30 hover:text-white hover:border-approveSub/60 shadow-lg shadow-approveSub/5 transition-all duration-300 cursor-pointer overflow-hidden",
@@ -123,7 +133,10 @@ export default function ProjectCard({
             </button>
           </div>
 
-          <div className="order-1 lg:order-2 min-h-[180px] lg:min-h-full">
+          <div
+            data-project-media
+            className="order-1 lg:order-2 min-h-[180px] lg:min-h-full"
+          >
             <ProjectMedia project={project} onClick={() => onOpen(project)} />
           </div>
         </div>
