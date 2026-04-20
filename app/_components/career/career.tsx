@@ -37,7 +37,7 @@ function Career() {
   ];
 
   return (
-    <section id="experience" className="relative py-20">
+    <section id="experience" className="relative py-20 overflow-x-hidden">
       <div className="container px-4 mx-auto">
         <motion.p
           className="text-approveSub text-xs tracking-[0.35em] uppercase font-semibold mb-3"

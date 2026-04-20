@@ -15,6 +15,23 @@ export function animateSkillsScene({
   viewport,
   track,
 }: AnimateSkillsSceneParams) {
+  const isTouchDevice =
+    "ontouchstart" in window || navigator.maxTouchPoints > 0;
+
+  if (isTouchDevice) {
+    viewport.style.overflowX = "auto";
+    viewport.style.overflowY = "hidden";
+    (viewport.style as CSSStyleDeclaration & Record<string, string>)[
+      "-webkit-overflow-scrolling"
+    ] = "touch";
+
+    return () => {
+      viewport.style.removeProperty("overflow-x");
+      viewport.style.removeProperty("overflow-y");
+      viewport.style.removeProperty("-webkit-overflow-scrolling");
+    };
+  }
+
   section.style.minHeight = "100vh";
   gsap.set(track, { x: 0 });
   const cardTweens: gsap.core.Tween[] = [];
