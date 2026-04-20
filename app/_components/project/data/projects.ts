@@ -19,6 +19,7 @@ export type ProjectItem = {
   isLive?: boolean;
   siteUrl?: string;
   githubUrl?: string;
+  highlights: string[];
   contributions: string[];
   achievements: string[];
   tech: string[];
@@ -42,6 +43,12 @@ export const allProjects: ProjectItem[] = [
     isLive: false,
     siteUrl: undefined,
     githubUrl: undefined,
+    highlights: [
+      "프론트엔드 전반 90% 담당",
+      "일 10만 회 이상 AI 채팅 요청 서비스 운영",
+      "LangChain + Azure OpenAI 기반 캐릭터 채팅 구현",
+      "GraphQL Codegen과 Zustand로 타입/상태 구조 정리",
+    ],
     contributions: [
       "프론트엔드 구조 설계 및 개발",
       "AI 캐릭터 채팅 기능 기획 및 구현",
@@ -127,16 +134,28 @@ export const allProjects: ProjectItem[] = [
     isLive: false,
     siteUrl: undefined,
     githubUrl: undefined,
+    highlights: [
+      "NFT 이미지 중심 서비스의 초기 로딩/네트워크 비용 최적화",
+      "page/count 기반 GraphQL 페이지네이션과 무한 스크롤 구현",
+      "업로드 전 클라이언트 이미지 리사이징으로 전송/저장 비용 절감",
+      "이미지 비율 기반 Masonry 배치로 레이아웃 흔들림과 컬럼 쏠림 완화",
+    ],
     contributions: [
       "Next.js/TypeScript 기반 핵심 화면 설계 및 구현",
       "GraphQL(Apollo) 연동으로 데이터 조회/업데이트 흐름 안정화",
       "NFT 생성/컬렉션 배포/거래(Buy Now, Offer, Bid, Settle) 플로우 구현",
-      "Socket.IO 실시간 알림, 필터/검색, 무한 스크롤 기반 탐색 경험 고도화",
+      "Socket.IO 실시간 알림, 필터/검색, page/count 기반 무한 스크롤 탐색 경험 구현",
+      "업로드 이미지의 클라이언트 리사이징 및 원격 이미지 최적화 설정 적용",
+      "이미지 비율 기반 Masonry 카드 높이 계산과 컬럼 분산 로직 구현",
     ],
     achievements: [
       "기반 서비스의 핵심 화면을 구현하여 일정 내 출시",
       "GraphQL(Apollo) 연동 구조를 정리해 데이터 조회/업데이트 흐름을 안정화하고 화면 응답 경험 개선",
       "파일 업로드, 실시간/비동기 처리 등 사용자 기능을 일관된 UX로 제공",
+      "업로드 전 canvas 기반 축소 이미지를 생성해 이미지 전송량과 저장 비용을 줄이는 구조 마련",
+      "Browse/NFT 목록을 page/count 단위로 요청하고 화면 하단 진입 시 다음 페이지를 불러와 초기 로딩량 감소",
+      "이미지 width/height 비율로 Masonry 카드 높이를 선점해 로딩 전후 layout shift 완화",
+      "Apollo InMemoryCache와 홈 API 통합 요청 구조로 중복 네트워크 요청 비용 절감",
     ],
     tech: [
       "Next.js",
@@ -152,7 +171,12 @@ export const allProjects: ProjectItem[] = [
       {
         tech: "Apollo Client",
         reason:
-          "NFT 마켓플레이스의 복잡한 데이터 관계를 GraphQL로 효율적으로 다루기 위해 선택",
+          "NFT 마켓플레이스의 복잡한 데이터 관계를 GraphQL로 효율적으로 다루고 InMemoryCache 기반 기본 캐싱 효과를 활용하기 위해 선택",
+      },
+      {
+        tech: "Next.js Image",
+        reason:
+          "S3, Google Storage 등 외부 원격 이미지를 Next.js 이미지 최적화 파이프라인으로 처리하기 위해 도메인 설정과 함께 사용",
       },
       {
         tech: "Socket.IO Client",
@@ -171,9 +195,21 @@ export const allProjects: ProjectItem[] = [
         solution:
           "소켓 이벤트 수신 시 Apollo cache.modify를 통해 캐시를 직접 업데이트하여 일관성 유지",
       },
+      {
+        issue:
+          "NFT/프로필/배너처럼 외부 원격 이미지가 많아 초기 로딩과 업로드 비용이 커질 수 있는 문제",
+        solution:
+          "next.config.js에 외부 이미지 도메인을 등록해 next/image 최적화를 적용하고, 업로드 전 canvas로 긴 변 500px 이하 축소본을 생성",
+      },
+      {
+        issue:
+          "NFT 목록 데이터와 이미지 카드가 많아 한 번에 렌더링하면 초기 요청량과 레이아웃 흔들림이 커지는 문제",
+        solution:
+          "GraphQL page/count 페이지네이션과 무한 스크롤로 필요한 시점에만 데이터를 추가 로드하고, 이미지 비율 기반 높이 계산으로 Masonry layout shift를 완화",
+      },
     ],
     retrospective:
-      "Web3 개념과 NFT 거래 플로우를 처음 접하면서 도메인 이해가 개발 품질에 얼마나 중요한지 알게 되었습니다. 복잡한 트랜잭션 흐름을 사용자 친화적인 UI로 풀어내는 과정이 흥미로웠습니다.",
+      "NFT 이미지가 많은 서비스였기 때문에 초기 렌더링과 네트워크 비용을 줄이는 방향에 집중했습니다. 업로드 전 이미지 리사이징, page/count 기반 목록 요청, 무한 스크롤, Masonry 높이 선점 등을 적용하며 성능 최적화가 사용자 탐색 경험의 밀도와 안정성에 직접 연결된다는 것을 배웠습니다.",
     imageHint: "CHIZU 핵심 화면 이미지",
     videoUrl: null,
     imageUrl:
@@ -191,6 +227,12 @@ export const allProjects: ProjectItem[] = [
     isLive: true,
     siteUrl: undefined,
     githubUrl: undefined,
+    highlights: [
+      "클라이언트 전반 90% 담당",
+      "그래픽 처리 비용 49% 감소",
+      "초기 데이터 로딩 체감 속도 3배 향상",
+      "누적 2만 다운로드 이상 라이브 운영",
+    ],
     contributions: [
       "컴포넌트 단위 인터랙션/모션 구조 설계",
       "기능 단위 상태 흐름 및 화면 전환 로직 설계",
@@ -251,6 +293,11 @@ export const allProjects: ProjectItem[] = [
     isLive: false,
     siteUrl: undefined,
     githubUrl: undefined,
+    highlights: [
+      "클래스 개설/운영 핵심 흐름 설계",
+      "프론트엔드 및 DB 설계 80% 담당",
+      "디자인부터 퍼블리싱, 프론트엔드 개발까지 수행",
+    ],
     contributions: [
       "재능기부 클래스를 등록하고 운영할 수 있는 구조 설계",
       "화면 디자인부터 퍼블리싱, 프론트엔드 개발까지 수행",
@@ -277,6 +324,11 @@ export const allProjects: ProjectItem[] = [
     isLive: false,
     siteUrl: undefined,
     githubUrl: undefined,
+    highlights: [
+      "유치원/어린이집 홈페이지 플랫폼 구축",
+      "프론트엔드 전반 90% 담당",
+      "개설신청서 기능 DB 설계 및 연동",
+    ],
     contributions: [
       "디자인/퍼블리싱/프론트 개발 전반 담당",
       "개설신청서 기능의 DB 설계 및 연동",
@@ -303,6 +355,11 @@ export const allProjects: ProjectItem[] = [
     isLive: false,
     siteUrl: undefined,
     githubUrl: undefined,
+    highlights: [
+      "구매/대여가 가능한 쇼핑몰 구조 구현",
+      "프론트엔드 전반 90% 담당",
+      "상품 전시와 결제 전환 흐름을 고려한 UI 구성",
+    ],
     contributions: [
       "페이지 디자인/퍼블리싱 및 데이터 구조 연동",
       "구매/대여 흐름의 화면 UX 구성",
@@ -329,6 +386,11 @@ export const allProjects: ProjectItem[] = [
     isLive: false,
     siteUrl: undefined,
     githubUrl: undefined,
+    highlights: [
+      "웹 명함 제작과 화상상담 기능 UI 구현",
+      "프론트엔드 전반 90% 담당",
+      "PHP 기반 환경에서 퍼블리싱과 기능 통합",
+    ],
     contributions: [
       "웹 명함 제작/화상상담 기능의 UI 설계 및 구현",
       "퍼블리싱과 프론트 기능 통합 개발",
@@ -355,6 +417,11 @@ export const allProjects: ProjectItem[] = [
     isLive: false,
     siteUrl: undefined,
     githubUrl: undefined,
+    highlights: [
+      "재능기부 클래스 등록/관리 기능 구현",
+      "프론트엔드 전반 80% 담당",
+      "기획부터 배포까지 전 과정 경험",
+    ],
     contributions: [
       "재능기부 클래스를 등록하고 운영할 수 있는 서비스 구조 설계",
       "디자인부터 퍼블리싱, 프론트엔드 구현까지 전반 수행",

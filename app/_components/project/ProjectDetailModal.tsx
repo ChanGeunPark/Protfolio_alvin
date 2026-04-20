@@ -32,10 +32,7 @@ export default function ProjectDetailModal({ project }: Props) {
         {(project.videoUrl || project.imageUrl) && (
           <div className="w-[80%] mx-auto overflow-hidden rounded-2xl shadow-elevation02">
             {project.videoUrl ? (
-              <div
-                className="relative w-full"
-                style={{ aspectRatio: "16/9" }}
-              >
+              <div className="relative w-full" style={{ aspectRatio: "16/9" }}>
                 <iframe
                   src={getStreamEmbedUrl(project.videoUrl)}
                   className="absolute inset-0 h-full w-full rounded-xl border-0"
@@ -46,10 +43,7 @@ export default function ProjectDetailModal({ project }: Props) {
                 />
               </div>
             ) : project.imageUrl ? (
-              <div
-                className="relative w-full"
-                style={{ aspectRatio: "16/9" }}
-              >
+              <div className="relative w-full" style={{ aspectRatio: "16/9" }}>
                 <Image
                   src={project.imageUrl}
                   alt="프로젝트 미리보기"
@@ -135,6 +129,21 @@ export default function ProjectDetailModal({ project }: Props) {
           )}
           <InfoCard label="역할" value={project.role} colSpan />
         </div>
+
+        {/* 핵심 요약 */}
+        <Section title="핵심 요약">
+          <ul className="grid gap-2 md:grid-cols-2">
+            {project.highlights.map((item) => (
+              <li
+                key={item}
+                className="flex items-start gap-2.5 rounded-xl bg-white/5 p-3 text-sm text-zinc-300 ring-1 ring-white/8"
+              >
+                <span className="mt-1 shrink-0 w-1.5 h-1.5 rounded-full bg-approveSub" />
+                <span className="leading-relaxed">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </Section>
 
         {/* 기술 스택 */}
         <Section title="기술 스택">
