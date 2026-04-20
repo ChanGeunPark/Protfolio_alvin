@@ -7,7 +7,6 @@ import { cls, getStreamEmbedUrl } from "@/lib/utils";
 import { useAppModal } from "@/components/common/modal";
 import { allProjects, type ProjectItem } from "./data/projects";
 import ProjectDetailModal from "./ProjectDetailModal";
-import { HiExternalLink } from "react-icons/hi";
 
 function Project() {
   useProjectSceneMotion();
