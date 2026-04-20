@@ -1,14 +1,13 @@
 "use client";
 import AlvinBadge from "@/components/common/badge/alvinBadge";
-import React from "react";
 
 function Career() {
   const careerData = [
     {
       company: "(주)오지",
-      tags: ["2022.09 ~ 2026.02", "프론트엔드"],
+      tags: ["2022.09 ~ 2026.02", "프론트엔드", "클라이언트"],
       description:
-        "스타트업에서 프로젝트를 처음부터 끝까지 만들고 운영하면서 프론트엔드 구조 설계, 상태 관리, API 연동, 실서비스 운영 경험을 깊게 쌓았다. AI 캐릭터 채팅 시스템을 도입하여 일 10만 회 이상의 대화 요청을 안정적으로 처리했습니다.",
+        "스타트업에서 프로젝트를 처음부터 끝까지 만들고 운영하면서 프론트엔드 구조 설계, 상태 관리, API 연동, 실서비스 운영 경험을 깊게 쌓았습니다. AI 캐릭터 채팅 시스템을 도입하여 일 10만 회 이상의 대화 요청을 안정적으로 처리했습니다.",
     },
     {
       company: "(주)에듀에듀",
@@ -34,7 +33,7 @@ function Career() {
 
   return (
     <section id="experience" className="relative py-20">
-      <div className="container px-3 mx-auto">
+      <div className="container px-4 mx-auto">
         <h2 className="text-white text-2xl font-bold">커리어</h2>
         <div className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 z-30 mt-4">
           {careerData.map((career) => (

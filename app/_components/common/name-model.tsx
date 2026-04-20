@@ -17,7 +17,15 @@ function NameModel() {
 
     root.traverse((obj) => {
       if (!(obj instanceof THREE.Mesh)) return;
-      const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
+
+      const clonedMaterial = Array.isArray(obj.material)
+        ? obj.material.map((material) => material.clone())
+        : obj.material.clone();
+      obj.material = clonedMaterial;
+
+      const mats = Array.isArray(clonedMaterial)
+        ? clonedMaterial
+        : [clonedMaterial];
       for (const mat of mats) {
         if ("color" in mat && mat.color instanceof THREE.Color) {
           mat.color.multiplyScalar(ROOT_DARKEN);

@@ -1,16 +1,26 @@
 "use client";
 
+import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
 import { useState, useRef } from "react";
 import { SiGithub } from "react-icons/si";
 import { HiOutlineMail, HiOutlineExternalLink } from "react-icons/hi";
 
-const CONTACT_EMAIL = "your.email@example.com"; // 실제 이메일로 교체하세요
+const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ?? "";
+const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ?? "";
+const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ?? "";
+
+const emailJsReady =
+  Boolean(EMAILJS_PUBLIC_KEY) &&
+  Boolean(EMAILJS_SERVICE_ID) &&
+  Boolean(EMAILJS_TEMPLATE_ID);
+
+const CONTACT_EMAIL = "design795@naver.com"; // 실제 이메일로 교체하세요
 
 const socialLinks = [
   {
     label: "GitHub",
-    href: "https://github.com/yourhandle",
+    href: "https://github.com/ChanGeunPark",
     Icon: SiGithub,
     description: "프로젝트 코드 보기",
   },
@@ -32,6 +42,8 @@ const fadeUpTransition = (delay: number) => ({
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleChange = (
@@ -40,18 +52,39 @@ export default function Contact() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = encodeURIComponent(
-      `포트폴리오 문의 — ${form.name || "익명"}`,
-    );
-    const body = encodeURIComponent(
-      `이름: ${form.name}\n이메일: ${form.email}\n\n${form.message}`,
-    );
-    window.open(`mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`);
-    setSent(true);
-    setForm({ name: "", email: "", message: "" });
-    setTimeout(() => setSent(false), 4000);
+    setSubmitError(null);
+
+    if (!emailJsReady) {
+      setSubmitError(
+        "EmailJS 설정이 없습니다. .env.local에 NEXT_PUBLIC_EMAILJS_* 변수를 추가하세요.",
+      );
+      return;
+    }
+
+    setSubmitting(true);
+
+    console.log(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_PUBLIC_KEY);
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          subject: form.name,
+          email: form.email,
+          description: form.message,
+        },
+        { publicKey: EMAILJS_PUBLIC_KEY },
+      );
+      setSent(true);
+      setForm({ name: "", email: "", message: "" });
+      setTimeout(() => setSent(false), 4000);
+    } catch {
+      setSubmitError("전송에 실패했습니다. 잠시 후 다시 시도해 주세요.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const inputCls =
@@ -78,7 +111,7 @@ export default function Contact() {
         }}
       />
 
-      <article className="container relative z-10 mx-auto px-6 py-24 grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+      <article className="container relative z-10 mx-auto px-4 py-24 grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
         {/* ── Left: Info ── */}
         <div className="flex flex-col justify-center">
           <motion.p
@@ -147,7 +180,7 @@ export default function Contact() {
 
           <h3 className="text-white font-bold text-xl mb-1">메시지 보내기</h3>
           <p className="text-zinc-500 text-sm mb-7">
-            양식을 작성하면 이메일 클라이언트가 열립니다.
+            양식을 작성해 보내주시면 제 이메일로 전달됩니다.
           </p>
 
           <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
@@ -197,13 +230,24 @@ export default function Contact() {
               />
             </div>
 
+            {submitError ? (
+              <p className="text-red-400/90 text-xs leading-relaxed">
+                {submitError}
+              </p>
+            ) : null}
+
             <button
               type="submit"
-              className="group relative w-full overflow-hidden rounded-xl bg-approveSub/15 border border-approveSub/30 hover:bg-approveSub/25 hover:border-approveSub/60 text-approveSub font-semibold py-3.5 text-sm transition-all duration-300 active:scale-[0.98]"
+              disabled={submitting}
+              className="group relative w-full overflow-hidden rounded-xl bg-approveSub/15 border border-approveSub/30 hover:bg-approveSub/25 hover:border-approveSub/60 text-approveSub font-semibold py-3.5 text-sm transition-all duration-300 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none"
             >
               <span className="relative z-10 flex items-center justify-center gap-2">
                 <HiOutlineMail className="text-base" />
-                {sent ? "이메일 클라이언트가 열렸습니다 ✓" : "이메일 보내기"}
+                {submitting
+                  ? "전송 중…"
+                  : sent
+                    ? "전송되었습니다 ✓"
+                    : "메시지 보내기"}
               </span>
               {/* Shimmer on hover */}
               <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-linear-to-r from-transparent via-approveSub/10 to-transparent" />
