@@ -32,10 +32,7 @@ export default function ProjectDetailModal({ project }: Props) {
         {(project.videoUrl || project.imageUrl) && (
           <div className="w-[80%] mx-auto overflow-hidden rounded-2xl shadow-elevation02">
             {project.videoUrl ? (
-              <div
-                className="relative w-full"
-                style={{ aspectRatio: "16/9" }}
-              >
+              <div className="relative w-full" style={{ aspectRatio: "16/9" }}>
                 <iframe
                   src={getStreamEmbedUrl(project.videoUrl)}
                   className="absolute inset-0 h-full w-full rounded-xl border-0"
@@ -46,10 +43,7 @@ export default function ProjectDetailModal({ project }: Props) {
                 />
               </div>
             ) : project.imageUrl ? (
-              <div
-                className="relative w-full"
-                style={{ aspectRatio: "16/9" }}
-              >
+              <div className="relative w-full" style={{ aspectRatio: "16/9" }}>
                 <Image
                   src={project.imageUrl}
                   alt="프로젝트 미리보기"

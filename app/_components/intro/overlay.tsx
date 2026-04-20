@@ -8,11 +8,15 @@ export function IntroOverlay({ onCycleTexture }: IntroOverlayProps) {
   return (
     <>
       <span className="pointer-events-none absolute left-0 top-0 z-10 block h-[200px] w-full bg-gradient-to-t from-transparent to-zinc-900" />
-      <h2 className="pointer-events-none absolute bottom-1/4 left-1/2 -translate-x-1/2 text-zinc-200 font-bold text-center">
-        사용자 경험을 중심으로 문제를 해결하는 <br />{" "}
-        <span className="text-primaryMain">프론트엔드 개발자</span>{" "}
-        박찬근입니다.
+      <h2 className="pointer-events-none absolute bottom-1/4 left-1/2 -translate-x-1/2 text-zinc-200 font-bold text-center w-full">
+        화면을 넘어,&nbsp;
+        <span className="text-primaryMain">경험을 설계하는</span>
+        <br />
+        프론트엔드 개발자&nbsp;
+        <span className="text-primaryMain">박찬근</span>
+        입니다
       </h2>
+
       <button
         type="button"
         className="absolute right-1/4 top-1/4 text-zinc-500"

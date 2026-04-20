@@ -23,11 +23,13 @@ import {
 } from "react-icons/si";
 import type { IconType } from "react-icons/lib";
 import { useSkillsSceneMotion } from "./hooks/useSkillsSceneMotion";
+import Image from "next/image";
 
 type SkillItem = {
   name: string;
   description: string;
   Icon?: IconType;
+  iconImage?: string;
   iconColor: string;
   iconBg: string;
 };
@@ -89,6 +91,7 @@ const skillCategories: SkillCategory[] = [
       {
         name: "Zustand",
         description: "경량 전역 상태 관리로 복잡한 UI 상태 제어",
+        iconImage: "/images/icons/zustandLogo.svg",
         iconColor: "#F97316",
         iconBg: "rgba(249,115,22,0.12)",
       },
@@ -165,13 +168,6 @@ const skillCategories: SkillCategory[] = [
         iconBg: "rgba(249,115,22,0.12)",
       },
       {
-        name: "Radix UI",
-        description: "헤드리스 컴포넌트로 완전 커스터마이징 UI 제작",
-        Icon: SiRadixui,
-        iconColor: "#e8e8e8",
-        iconBg: "rgba(255,255,255,0.08)",
-      },
-      {
         name: "Dropzone",
         description: "드래그 앤 드롭 파일 업로드 인터페이스 구현",
         iconColor: "#3B82F6",
@@ -238,21 +234,16 @@ const skillCategories: SkillCategory[] = [
       {
         name: "Toss Payments",
         description: "결제 API 연동 및 웹훅 기반 주문 처리",
+        iconImage: "/images/icons/Toss_App_Icon.png",
         iconColor: "#0064FF",
         iconBg: "rgba(0,100,255,0.12)",
       },
       {
         name: "EmailJS",
         description: "서버 없이 클라이언트에서 직접 이메일 전송",
+        iconImage: "/images/icons/emailjsLogo.png",
         iconColor: "#EF4444",
         iconBg: "rgba(239,68,68,0.12)",
-      },
-      {
-        name: "PM2",
-        description: "Node.js 앱 클러스터 무중단 배포 및 모니터링",
-        Icon: SiPm2,
-        iconColor: "#e0e0e0",
-        iconBg: "rgba(255,255,255,0.08)",
       },
       {
         name: "GCP",
@@ -304,7 +295,15 @@ function SkillIcon({ skill }: { skill: SkillItem }) {
       className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
       style={{ background: skill.iconBg }}
     >
-      {skill.Icon ? (
+      {skill.iconImage ? (
+        <Image
+          src={skill.iconImage}
+          alt={skill.name}
+          width={18}
+          height={18}
+          className="w-6 h-6"
+        />
+      ) : skill.Icon ? (
         <skill.Icon size={18} style={{ color: skill.iconColor }} />
       ) : (
         <span
@@ -339,7 +338,7 @@ function Skills() {
               </h2>
               <div className="mt-6 flex items-end gap-2">
                 <span className="text-white text-4xl md:text-5xl font-bold leading-none">
-                  4+
+                  5+
                 </span>
                 <span className="text-zinc-400 text-sm md:text-base mb-1 leading-tight">
                   Years of

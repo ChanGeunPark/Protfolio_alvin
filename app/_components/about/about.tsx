@@ -1,24 +1,33 @@
 "use client";
-import Image from "next/image";
 import React from "react";
+import { motion } from "framer-motion";
 import MyFace from "./myFace";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (i: number = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: "easeOut" as const, delay: i * 0.12 },
+  }),
+};
 
 function About() {
   const aboutMeData = [
     {
       index: "01",
-      title: "프론트엔드를 지향하는 이유",
-      description: `사용자와 가장 가까운 곳에서 서비스의 인상을 만드는 영역이 프론트엔드라고 생각합니다. 보이는 화면을 넘어 흐름과 반응까지 설계할 수 있다는 점이 매력적이었습니다. 그래서 저는 경험을 만드는 개발을 하고 싶어 프론트엔드를 선택했습니다.`,
+      title: "프론트를 중심으로 넓혀온 5년의 개발 경험",
+      description: `저는 프론트엔드를 메인으로 사용자 경험과 화면 흐름을 설계해왔습니다. 동시에 게임 클라이언트 개발을 통해 실시간 반응과 성능 감각을 쌓았고, 서비스 맥락에 맞는 인터랙션과 상태 흐름을 정교하게 다듬으며 제품 완성도를 높여왔습니다.`,
     },
     {
       index: "02",
-      title: "가장 중요하게 생각하는 가치",
-      description: `제가 가장 중요하게 생각하는 가치는 사용자 중심의 개발입니다. 기능 구현에 그치지 않고, 더 자연스럽고 편한 경험을 만드는 것을 우선합니다. 동시에 운영과 확장을 고려한 구조도 함께 중요하게 생각합니다.`,
+      title: "도메인을 넘나들며 문제를 끝까지 해결하는 방식",
+      description: `역할을 프론트엔드로 한정하지 않고, 문제의 원인이 어디에 있든 필요한 영역까지 책임지고 해결합니다. 이 과정에서 화면, 상태, 데이터 흐름을 하나의 사용자 여정으로 연결해 병목과 이슈를 줄이는 데 집중합니다.`,
     },
     {
       index: "03",
-      title: "그 가치를 실무에서 어떻게 구현해왔는지",
-      description: `실무에서는 UI 구현뿐 아니라 상태와 데이터 흐름까지 함께 설계해왔습니다. AI 채팅, 결제, 콘텐츠 기능이 자연스럽게 이어지도록 구조를 정리했습니다. 그 결과 대규모 요청이 발생하는 서비스도 안정적으로 운영할 수 있었습니다.`,
+      title: "실무에서 만들어낸 결과",
+      description: `실무에서는 UI 구현을 넘어 상태 관리와 운영 관점의 안정성까지 함께 챙겨왔습니다. 페이지 성격에 맞는 데이터 로딩 전략과 상태 구조를 정리해 초기 로딩 부담을 줄였고, 기능 확장과 협업이 쉬운 구조로 개선해 서비스 완성도를 높였습니다.`,
     },
   ];
 
@@ -27,56 +36,83 @@ function About() {
       id="about"
       className="relative min-h-screen flex items-center overflow-hidden"
     >
-      <article className="container px-6 mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 z-10 py-24">
-        {/* Left — text content */}
+      <article className="container px-4 mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 z-10 py-24">
         <div className="flex flex-col justify-center">
-          {/* Eyebrow label */}
-          <p className="text-approveSub text-xs tracking-[0.35em] uppercase font-semibold mb-6">
+          <motion.p
+            className="text-approveSub text-xs tracking-[0.35em] uppercase font-semibold"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            custom={0}
+          >
             About Me
-          </p>
+          </motion.p>
 
-          {/* Hero identity */}
-          <h1 className="text-white text-4xl md:text-5xl font-bold leading-snug mb-2">
+          <motion.h1
+            className="text-white text-4xl md:text-5xl font-bold leading-snug mb-2"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            custom={1}
+          >
             Park Changeun
-          </h1>
-          <p className="text-zinc-400 text-sm md:text-base mb-12 leading-relaxed">
-            Frontend Developer · 경험을 만드는 개발자
-          </p>
+          </motion.h1>
+          <motion.p
+            className="text-zinc-400 text-sm md:text-base mb-12 leading-relaxed"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            custom={2}
+          >
+            Frontend Developer · 경험을 설계하는 개발자
+          </motion.p>
 
-          {/* Q&A cards */}
           <div className="space-y-4">
-            {aboutMeData.map((item) => (
-              <div
+            {aboutMeData.map((item, i) => (
+              <motion.div
                 key={item.index}
                 className="group relative rounded-2xl border border-white/[0.07] bg-white/3 hover:bg-white/6 hover:border-approveSub/25 transition-all duration-300 px-5 py-5 overflow-hidden"
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                custom={3 + i}
               >
                 {/* Left accent line on hover */}
                 <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[2px] h-0 group-hover:h-[55%] bg-linear-to-b from-approveSub/0 via-approveSub to-approveSub/0 rounded-full transition-all duration-400" />
 
                 <div className="flex items-start gap-4">
-                  {/* Number */}
-                  <span className="text-approveSub/30 text-2xl font-bold leading-none mt-0.5 group-hover:text-approveSub/60 transition-colors duration-300 select-none font-mono shrink-0 w-8">
+                  <span className="text-approveSub/30 text-2xl font-bold leading-none group-hover:text-approveSub/60 transition-colors duration-300 select-none font-mono shrink-0 w-8">
                     {item.index}
                   </span>
 
                   <div className="flex-1 min-w-0">
                     <h2 className="text-zinc-100 font-semibold text-sm md:text-base mb-2 leading-snug">
-                      Q.&nbsp;{item.title}
+                      {item.title}
                     </h2>
                     <p className="text-zinc-500 text-sm leading-relaxed group-hover:text-zinc-400 transition-colors duration-300">
                       {item.description}
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
 
         {/* Right — ASCII portrait (Canvas 2D) */}
-        <div className="hidden md:flex justify-center items-center aspect-square h-full w-full">
+        <motion.div
+          className="hidden md:flex justify-center items-center aspect-square h-full w-full"
+          initial={{ opacity: 0, scale: 0.96 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
+        >
           <MyFace />
-        </div>
+        </motion.div>
       </article>
     </section>
   );

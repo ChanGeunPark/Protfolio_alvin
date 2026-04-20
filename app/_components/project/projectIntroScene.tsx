@@ -2,6 +2,9 @@
 
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
+import gsap from "gsap";
+
+const CHAR_STAGGER = 0.06;
 
 const IMAGE_COUNT = 40;
 const GRAVITY = 900;
@@ -27,27 +30,11 @@ const PROJECT_IMAGES: ImageMeta[] = [
     width: 105,
     height: 90,
   },
-  // {
-  //   src: "/images/projectScene/ProjectIntroImage_02.png",
-  //   width: 90,
-  //   height: 72,
-  // },
   {
     src: "/images/projectScene/ProjectIntroImage_03.png",
     width: 90,
     height: 77,
   },
-  // {
-  //   src: "/images/projectScene/ProjectIntroImage_04.png",
-  //   width: 133,
-  //   height: 97,
-  // },
-  // { src: "/images/projectScene/ProjectIntroImage_05.png", width: 215, height: 164 },
-  // {
-  //   src: "/images/projectScene/ProjectIntroImage_06.png",
-  //   width: 170,
-  //   height: 147,
-  // },
   {
     src: "/images/projectScene/ProjectIntroImage_07.png",
     width: 141,
@@ -86,6 +73,8 @@ type DragState = {
 
 function ProjectIntroScene() {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const titleRef = useRef<HTMLHeadingElement | null>(null);
+  const subtitleRef = useRef<HTMLParagraphElement | null>(null);
 
   const imageRefs = useRef<Array<HTMLImageElement | null>>([]);
 
@@ -252,6 +241,9 @@ function ProjectIntroScene() {
       body.assistedBounceCount = 0;
       body.element.style.zIndex = "40";
       element.setPointerCapture(event.pointerId);
+      window.addEventListener("pointermove", handlePointerMove, {
+        passive: false,
+      });
     };
 
     const handlePointerMove = (event: PointerEvent) => {
@@ -302,14 +294,12 @@ function ProjectIntroScene() {
       }
 
       dragState = null;
+      window.removeEventListener("pointermove", handlePointerMove);
     };
 
     for (const body of bodies) {
       body.element.addEventListener("pointerdown", handlePointerDown);
     }
-    window.addEventListener("pointermove", handlePointerMove, {
-      passive: false,
-    });
     window.addEventListener("pointerup", releaseDrag);
     window.addEventListener("pointercancel", releaseDrag);
 
@@ -424,7 +414,57 @@ function ProjectIntroScene() {
       window.removeEventListener("pointermove", handlePointerMove);
       window.removeEventListener("pointerup", releaseDrag);
       window.removeEventListener("pointercancel", releaseDrag);
+      dragState = null;
     };
+  }, []);
+
+  useEffect(() => {
+    const title = titleRef.current;
+    const subtitle = subtitleRef.current;
+    if (!title || !subtitle) return;
+
+    const buildSpans = (element: HTMLElement, text: string) => {
+      element.textContent = "";
+      return text.split("").map((char) => {
+        const span = document.createElement("span");
+        span.style.display = "inline-block";
+        span.style.opacity = "0";
+        span.style.transform = "translateY(-40px)";
+        span.textContent = char === " " ? "\u00A0" : char;
+        element.appendChild(span);
+        return span;
+      });
+    };
+
+    const runDropIn = (spans: HTMLSpanElement[], startDelay = 0) => {
+      spans.forEach((span, i) => {
+        gsap.to(span, {
+          opacity: 1,
+          y: 0,
+          duration: 0.45,
+          delay: startDelay + i * CHAR_STAGGER,
+          ease: "power3.out",
+        });
+      });
+    };
+
+    const titleSpans = buildSpans(title, "Projects");
+    const subtitleSpans = buildSpans(subtitle, "2020.10 ~ 2026.02");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (!entry?.isIntersecting) return;
+        runDropIn(titleSpans, 0);
+        runDropIn(subtitleSpans, 0.35);
+        observer.disconnect();
+      },
+      { threshold: 0.35 },
+    );
+
+    observer.observe(title);
+
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -446,15 +486,21 @@ function ProjectIntroScene() {
             unoptimized
             width={meta.width}
             height={meta.height}
-            className="pointer-events-auto absolute select-none rounded-xl object-cover shadow-2xl touch-none"
+            className="pointer-events-none md:pointer-events-auto absolute select-none rounded-xl object-cover shadow-2xl touch-none"
           />
         ))}
       </div>
 
-      <h2 className="relative z-10 text-[80px] font-bold text-white pointer-events-none text-shadow-[0_0_20px_rgba(0,0,0,1)]">
+      <h2
+        ref={titleRef}
+        className="relative z-10 text-[80px] font-bold text-white pointer-events-none text-shadow-[0_0_20px_rgba(0,0,0,1)]"
+      >
         Projects
       </h2>
-      <p className="relative z-10 mt-2 text-sm text-white opacity-50 md:text-base pointer-events-none">
+      <p
+        ref={subtitleRef}
+        className="relative z-10 mt-2 text-sm text-white opacity-70 md:text-base pointer-events-none"
+      >
         2020.10 ~ 2026.02
       </p>
     </div>
