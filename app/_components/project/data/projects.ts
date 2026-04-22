@@ -46,7 +46,7 @@ export const allProjects: ProjectItem[] = [
     highlights: [
       "프론트엔드 전반 90% 담당 및 Pages Router 기반 앱 구조 설계",
       "SSR/ISR, Apollo 캐시, lazy query로 페이지 특성별 데이터 로딩 최적화",
-      "일 10만 회 이상 AI 채팅 요청 서비스 운영",
+      "누적 유저 1만 명, 피크 100건/초 AI 채팅 요청 서비스 운영",
       "GraphQL Codegen과 Zustand 도메인 스토어로 타입/상태 구조 정리",
       "Flutter로 웹앱화하여 스토어 배포",
     ],
@@ -64,14 +64,13 @@ export const allProjects: ProjectItem[] = [
       "시리즈/에피소드/투표/커뮤니티 흐름을 하나의 사용자 경험으로 통합",
       "LangChain + Azure OpenAI 기반 캐릭터 채팅 기능 구현",
       "채팅방 생성/저장/불러오기/토큰 차감 및 충전 흐름 구축",
-      "일 10만 회 이상의 AI 채팅 요청이 발생하는 서비스 운영",
+      "누적 유저 1만 명, 피크 100건/초 AI 채팅 요청이 발생하는 서비스 운영",
       "GraphQL Codegen 기반 gql 클라이언트 프리셋을 도입해 쿼리 타입 안정성과 생산성 향상",
       "세션/로컬 토큰 변화에 맞춰 Apollo 클라이언트를 갱신해 인증 상태와 API 클라이언트 동기화",
       "SSR과 ISR(revalidate)을 페이지 성격에 맞게 적용해 첫 페인트, SEO, 데이터 최신성 균형 확보",
       "page/count 기반 공통 그리드와 BrowseScroller 무한 스크롤로 목록 초기 로딩량 감소",
       "AI 피드 스크롤/데이터 보존을 Zustand 스토어로 관리해 화면 이동 후에도 탐색 맥락 유지",
       "next/script afterInteractive 전략과 next/image 기반 공통 ImageBox로 초기 로딩 비용 완화",
-      "PWA manifest/service worker 설정 구조를 마련하고 배포 플래그로 활성화 여부를 제어할 수 있게 구성",
     ],
     tech: [
       "Next.js 13",
@@ -91,7 +90,6 @@ export const allProjects: ProjectItem[] = [
       "LangChain",
       "Azure OpenAI",
       "TossPayments SDK",
-      "PM2",
       "GCP",
     ],
     techReasons: [
@@ -132,9 +130,10 @@ export const allProjects: ProjectItem[] = [
     ],
     devIssues: [
       {
-        issue: "AI 채팅 스트리밍 응답 중 UI가 멈추거나 깜빡이는 현상 발생",
+        issue:
+          "AI 캐릭터의 세계관(시스템 프롬프트)이 클라이언트↔서버 구간에서 평문으로 전달되면 네트워크 탭에서 프롬프트 내용이 그대로 노출되는 보안 문제",
         solution:
-          "ReadableStream을 청크 단위로 처리하고, React 상태 업데이트를 requestAnimationFrame으로 배치 처리하여 렌더링 안정화",
+          "CryptoJS AES로 worldView를 암호화하여 전송하고, 서버(API Route)에서만 복호화하여 LangChain 프롬프트에 주입",
       },
       {
         issue:
@@ -154,15 +153,15 @@ export const allProjects: ProjectItem[] = [
         solution:
           "DefaultHead/CustomSeo와 next-sitemap 설정으로 SEO 레이어를 모듈화하고, SSR/ISR/lazy query 패턴을 페이지 성격에 맞게 분리",
       },
-      {
-        issue:
-          "PWA 설치/오프라인 대응 요구는 있었지만 빌드 환경에 따라 서비스 워커 활성화가 부담이 될 수 있는 문제",
-        solution:
-          "next-pwa, manifest, 서비스 워커 관련 설정 구조를 마련하되 next.config.js의 disable 플래그로 배포 시점에 토글 가능하게 구성",
-      },
+      // {
+      //   issue:
+      //     "PWA 설치/오프라인 대응 요구는 있었지만 빌드 환경에 따라 서비스 워커 활성화가 부담이 될 수 있는 문제",
+      //   solution:
+      //     "next-pwa, manifest, 서비스 워커 관련 설정 구조를 마련하되 next.config.js의 disable 플래그로 배포 시점에 토글 가능하게 구성",
+      // },
     ],
     retrospective:
-      "처음으로 단독 프론트엔드 개발자로 서비스 전체를 책임지며, 단순히 화면을 만드는 것보다 디렉터리 구조, Provider 레이어, 데이터 패칭 전략, SEO, 상태 보존 방식이 장기적인 운영 품질을 좌우한다는 것을 배웠습니다. 일 10만 건 이상의 AI 요청이 발생하는 서비스를 운영하면서 SSR/ISR, Apollo 캐시, 무한 스크롤, Zustand 스토어 같은 선택들이 실제 사용자 경험과 유지보수성에 직접 연결된다는 점을 체감했습니다.",
+      "처음으로 단독 프론트엔드 개발자로 서비스 전체를 책임지며, 단순히 화면을 만드는 것보다 디렉터리 구조, Provider 레이어, 데이터 패칭 전략, SEO, 상태 보존 방식이 장기적인 운영 품질을 좌우한다는 것을 배웠습니다. 누적 유저 1만 명, 피크 100건/초 AI 채팅 요청이 발생하는 서비스를 운영하면서 SSR/ISR, Apollo 캐시, 무한 스크롤, Zustand 스토어 같은 선택들이 실제 사용자 경험과 유지보수성에 직접 연결된다는 점을 체감했습니다.",
     imageHint: "CHIZU COMICS 대표 화면 이미지",
     videoUrl:
       "https://iframe.videodelivery.net/e311c4b8b0ef0347e3c8718df1041e08",
@@ -171,11 +170,11 @@ export const allProjects: ProjectItem[] = [
   {
     organization: "OG",
     title: "CHIZU",
-    oneLine: "Web3 NFT 마켓플레이스 핵심 화면과 데이터 흐름 구축",
+    oneLine: "마켓플레이스 핵심 화면과 데이터 흐름 구축",
     role: "프론트엔드 개발자",
     period: "2022.09 ~ 2023.08",
     members:
-      "프론트엔드 1명, 백엔드 1명, 디자이너 1명, 기획자 2명, 테크리더 1명, 블록체인개발 1명",
+      "프론트엔드 1명, 백엔드 1명, 디자이너 1명, 기획자 2명, 테크리드 1명, 블록체인개발 1명",
     contributionRate: "프론트엔드 전반 60%",
     isLive: false,
     siteUrl: undefined,
@@ -288,11 +287,11 @@ export const allProjects: ProjectItem[] = [
       "Sprite 자동화 에디터, ScriptableObject 관리 에디터 제작으로 작업 시간 60% 단축",
     ],
     achievements: [
-      "DOTween Sequence 기반 애니메이션 큐잉과 렌더링 호출 최적화로 그래픽 처리 비용 49% 감소",
+      "애니메이션 큐잉 시스템으로 렌더링 비용 49% 절감",
       "MessagePack 직렬화 도입으로 데이터 로드 속도 2.67배 향상 (6.3ms → 2.4ms), 저장 용량 55% 절감",
       "Observer 패턴으로 데이터-UI 간 느슨한 결합 구현 — 수동 갱신 로직 제거로 버그 감소",
-      "카페 AI State Machine으로 5명의 NPC가 모바일 환경에서 동시에 안정적으로 동작",
-      "NavMesh 비동기 베이킹으로 오브젝트 배치 시 프레임 드롭 제거",
+      "상태 기반 자동화 시스템 설계",
+      "비동기 처리로 프레임 드롭 제거",
       "쿨타운 기반 Flip 시스템으로 NPC 애니메이션 부하 50% 감소 및 떨림 현상 제거",
       "누적 2만 다운로드 라이브 운영",
     ],
@@ -361,96 +360,43 @@ export const allProjects: ProjectItem[] = [
   },
   {
     organization: "에듀에듀",
-    title: "에듀에듀 메인 사이트",
-    oneLine: "클래스 개설과 운영 흐름을 반영한 메인 서비스 사이트",
-    role: "클래스 개설 기능, 데이터베이스 설정, 디자인, 퍼블리싱, 프론트엔드 개발 담당",
-    members: "개발 2명, 기획 1명",
-    contributionRate: "프론트엔드 및 DB 설계 80%",
-    isLive: false,
-    siteUrl: undefined,
-    githubUrl: undefined,
-    highlights: [
-      "클래스 개설/운영 핵심 흐름 설계",
-      "프론트엔드 및 DB 설계 80% 담당",
-      "디자인부터 퍼블리싱, 프론트엔드 개발까지 수행",
-    ],
-    contributions: [
-      "재능기부 클래스를 등록하고 운영할 수 있는 구조 설계",
-      "화면 디자인부터 퍼블리싱, 프론트엔드 개발까지 수행",
-    ],
-    achievements: [
-      "서비스 운영에 필요한 핵심 기능 구현",
-      "사용자 관점의 클래스 개설 흐름을 반영해 완성도 향상",
-    ],
-    tech: ["DB 설계 및 설정", "웹 퍼블리싱", "프론트엔드 개발"],
-    retrospective:
-      "초기 서비스 기획부터 개발까지 전 과정에 참여하면서 사용자 흐름 설계의 중요성을 배웠습니다.",
-    imageHint: "에듀에듀 메인 사이트 이미지",
-    videoUrl: null,
-    imageUrl:
-      "https://imagedelivery.net/anvL-_ABM0Z5KQo2YmJX4g/cc4ebe9e-a270-4af0-2e59-e17521917c00/public",
-  },
-  {
-    organization: "에듀에듀",
     title: "에듀키즈",
     oneLine: "유치원·어린이집 대상 홈페이지 플랫폼 구축 프로젝트",
-    role: "디자인, 퍼블리싱, 프론트엔드 개발 및 일부 데이터 연동 담당",
+    role: "디자인, 퍼블리싱, 프론트엔드 개발 및 데이터 연동 담당",
     members: "개발 2명, 기획 1명",
     contributionRate: "프론트엔드 전반 90%",
     isLive: false,
     siteUrl: undefined,
     githubUrl: undefined,
     highlights: [
-      "유치원/어린이집 홈페이지 플랫폼 구축",
+      "유치원·어린이집 홈페이지 플랫폼 구축",
       "프론트엔드 전반 90% 담당",
-      "개설신청서 기능 DB 설계 및 연동",
+      "개설신청서 입력 → DB 저장 → 관리자 조회 흐름 설계 및 구현",
     ],
     contributions: [
       "디자인/퍼블리싱/프론트 개발 전반 담당",
-      "개설신청서 기능의 DB 설계 및 연동",
+      "개설신청서 기능의 MySQL 테이블 설계 및 PHP 서버 연동",
     ],
     achievements: [
-      "단순 홍보형 사이트를 운영 기능 포함 플랫폼으로 확장",
-      "개설 신청 기능으로 서비스 완성도 향상",
+      "단순 홍보 페이지를 개설 신청·관리 기능이 포함된 멀티 페이지 플랫폼으로 확장",
+      "개설신청서 입력 → MySQL 저장 → 관리자 조회 흐름을 직접 설계하고 PHP로 구현",
+      "기관별 맞춤 홈페이지 구성이 가능한 섹션 단위 UI 구조 설계",
     ],
-    tech: ["DB 연동", "웹 퍼블리싱", "프론트엔드 개발"],
+    tech: [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Tailwind CSS",
+      "jQuery",
+      "PHP",
+      "MySQL",
+    ],
     retrospective:
       "단순 홍보 사이트를 넘어 실제 운영 기능을 갖춘 플랫폼으로 발전시키면서 서비스 확장성에 대한 고민을 시작했습니다.",
     imageHint: "에듀키즈 플랫폼 화면 이미지",
     videoUrl: null,
     imageUrl:
       "https://imagedelivery.net/anvL-_ABM0Z5KQo2YmJX4g/d3bce1bb-1dc2-47e2-09c4-2b2af2340e00/public",
-  },
-  {
-    organization: "에듀에듀",
-    title: "ANDNEW",
-    oneLine: "작품 구매 및 대여가 가능한 쇼핑몰 서비스",
-    role: "디자인, 퍼블리싱, 프론트엔드 개발, 데이터 연동 담당",
-    members: "개발 2명, 기획 1명",
-    contributionRate: "프론트엔드 전반 90%",
-    isLive: false,
-    siteUrl: undefined,
-    githubUrl: undefined,
-    highlights: [
-      "구매/대여가 가능한 쇼핑몰 구조 구현",
-      "프론트엔드 전반 90% 담당",
-      "상품 전시와 결제 전환 흐름을 고려한 UI 구성",
-    ],
-    contributions: [
-      "페이지 디자인/퍼블리싱 및 데이터 구조 연동",
-      "구매/대여 흐름의 화면 UX 구성",
-    ],
-    achievements: [
-      "판매와 렌트 기능이 가능한 서비스 구조 구현",
-      "상품 전시와 구매 흐름을 고려한 사용자 화면 구성",
-    ],
-    tech: ["DB 설계", "웹 퍼블리싱", "프론트엔드 개발"],
-    retrospective:
-      "쇼핑몰 서비스의 구매/대여 두 가지 흐름을 하나의 UI로 통합하면서 일관성 있는 UX 설계의 어려움과 중요성을 배웠습니다.",
-    imageHint: "ANDNEW 쇼핑몰 화면 이미지",
-    videoUrl: null,
-    imageUrl:
-      "https://imagedelivery.net/anvL-_ABM0Z5KQo2YmJX4g/4afacb8d-94b7-4580-0ce1-336858d8a900/public",
   },
   {
     organization: "에듀에듀",
@@ -465,53 +411,31 @@ export const allProjects: ProjectItem[] = [
     highlights: [
       "웹 명함 제작과 화상상담 기능 UI 구현",
       "프론트엔드 전반 90% 담당",
-      "PHP 기반 환경에서 퍼블리싱과 기능 통합",
+      "PHP 기반 환경에서 퍼블리싱과 서버 연동 단독 완성",
     ],
     contributions: [
       "웹 명함 제작/화상상담 기능의 UI 설계 및 구현",
-      "퍼블리싱과 프론트 기능 통합 개발",
+      "PHP 서버 연동 및 MySQL 기반 데이터 저장 구조 구현",
     ],
     achievements: [
-      "핵심 기능을 사용자 흐름에 맞게 구현",
-      "서비스 이용 편의성과 완성도 향상",
+      "웹 명함 입력 → 미리보기 → 저장 흐름을 단일 페이지 UI로 구현",
+      "화상상담 예약·진입 흐름을 UI로 설계하고 PHP 서버 연동까지 완성",
+      "PHP 기반 환경에서 디자인·퍼블리싱·서버 연동을 단독으로 전담",
     ],
-    tech: ["PHP", "UI/UX 설계", "웹 퍼블리싱", "프론트엔드 개발"],
+    tech: [
+      "PHP",
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Tailwind CSS",
+      "jQuery",
+      "MySQL",
+    ],
     retrospective:
       "PHP 기반 환경에서 작업하며 기술 스택보다 사용자 흐름 설계가 더 중요하다는 것을 다시 한 번 확인했습니다.",
     imageHint: "Wekeep 서비스 화면 이미지",
     videoUrl: null,
     imageUrl:
       "https://imagedelivery.net/anvL-_ABM0Z5KQo2YmJX4g/b05bbd8c-bcf2-44d5-8b1d-5872bd57d400/public",
-  },
-  {
-    organization: "에듀에듀",
-    title: "퀵클래스 재능기부 사이트",
-    oneLine: "클래스 개설 및 운영 중심의 재능기부 플랫폼",
-    role: "클래스 개설 기능, 데이터베이스 설정, 디자인, 퍼블리싱, 프론트엔드 개발 담당",
-    members: "개발 2명, 기획 1명",
-    contributionRate: "프론트엔드 전반 80%",
-    isLive: false,
-    siteUrl: undefined,
-    githubUrl: undefined,
-    highlights: [
-      "재능기부 클래스 등록/관리 기능 구현",
-      "프론트엔드 전반 80% 담당",
-      "기획부터 배포까지 전 과정 경험",
-    ],
-    contributions: [
-      "재능기부 클래스를 등록하고 운영할 수 있는 서비스 구조 설계",
-      "디자인부터 퍼블리싱, 프론트엔드 구현까지 전반 수행",
-    ],
-    achievements: [
-      "클래스 등록/관리 가능한 핵심 운영 기능 마련",
-      "사용자 흐름 기반 UI로 이용 편의성과 완성도 향상",
-    ],
-    tech: ["DB 설계 및 설정", "웹 퍼블리싱", "프론트엔드 개발"],
-    retrospective:
-      "개발 커리어 초기에 맡은 프로젝트로, 기획부터 배포까지 전 과정을 경험하며 개발자로서의 기초를 다진 프로젝트입니다.",
-    imageHint: "퀵클래스 서비스 화면 이미지",
-    videoUrl: null,
-    imageUrl:
-      "https://imagedelivery.net/anvL-_ABM0Z5KQo2YmJX4g/f196c7b7-0c09-40d0-df24-49161c927c00/public",
   },
 ];
