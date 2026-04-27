@@ -161,7 +161,7 @@ export const allProjects: ProjectItem[] = [
       // },
     ],
     retrospective:
-      "처음으로 단독 프론트엔드 개발자로 서비스 전체를 책임지며, 단순히 화면을 만드는 것보다 디렉터리 구조, Provider 레이어, 데이터 패칭 전략, SEO, 상태 보존 방식이 장기적인 운영 품질을 좌우한다는 것을 배웠습니다. 누적 유저 1만 명, 피크 100건/초 AI 채팅 요청이 발생하는 서비스를 운영하면서 SSR/ISR, Apollo 캐시, 무한 스크롤, Zustand 스토어 같은 선택들이 실제 사용자 경험과 유지보수성에 직접 연결된다는 점을 체감했습니다.",
+      "프론트엔드 개발자로 서비스 전체를 책임지며, 단순히 화면을 만드는 것보다 디렉터리 구조, Provider 레이어, 데이터 패칭 전략, SEO, 상태 보존 방식이 장기적인 운영 품질을 좌우한다는 것을 배웠습니다. 누적 유저 1만 명, 피크 100건/초 AI 채팅 요청이 발생하는 서비스를 운영하면서 SSR/ISR, Apollo 캐시, 무한 스크롤, Zustand 스토어 같은 선택들이 실제 사용자 경험과 유지보수성에 직접 연결된다는 점을 체감했습니다.",
     imageHint: "CHIZU COMICS 대표 화면 이미지",
     videoUrl:
       "https://iframe.videodelivery.net/e311c4b8b0ef0347e3c8718df1041e08",
@@ -363,8 +363,8 @@ export const allProjects: ProjectItem[] = [
     title: "에듀키즈",
     oneLine: "유치원·어린이집 대상 홈페이지 플랫폼 구축 프로젝트",
     role: "디자인, 퍼블리싱, 프론트엔드 개발 및 데이터 연동 담당",
-    members: "개발 2명, 기획 1명",
-    contributionRate: "프론트엔드 전반 90%",
+    members: "개발 2명",
+    contributionRate: "프론트엔드 90%, 백엔드 50%",
     isLive: false,
     siteUrl: undefined,
     githubUrl: undefined,
@@ -403,15 +403,15 @@ export const allProjects: ProjectItem[] = [
     title: "Wekeep",
     oneLine: "웹 명함 제작과 화상상담 기능 제공 서비스",
     role: "전반적인 디자인, 퍼블리싱, 프론트엔드 개발 담당",
-    members: "개발 2명, 기획 1명",
-    contributionRate: "프론트엔드 전반 90%",
+    members: "개발 2명",
+    contributionRate: "프론트엔드 90%, 백엔드 50%",
     isLive: false,
     siteUrl: undefined,
     githubUrl: undefined,
     highlights: [
       "웹 명함 제작과 화상상담 기능 UI 구현",
       "프론트엔드 전반 90% 담당",
-      "PHP 기반 환경에서 퍼블리싱과 서버 연동 단독 완성",
+      "PHP 기반 환경에서 퍼블리싱과 서버 연동",
     ],
     contributions: [
       "웹 명함 제작/화상상담 기능의 UI 설계 및 구현",
