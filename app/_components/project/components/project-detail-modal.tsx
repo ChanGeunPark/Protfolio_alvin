@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import type { ProjectItem } from "./data/projects";
+import type { ProjectItem } from "../data/projects";
 import { HiExternalLink } from "react-icons/hi";
 import { FaGithub } from "react-icons/fa";
 import { getStreamEmbedUrl } from "@/lib/utils";

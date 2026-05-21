@@ -3,8 +3,8 @@
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import * as THREE from "three";
-import Character from "../common/character-model";
-import NameGltf from "../common/name-model";
+import Character from "./character-model";
+import NameGltf from "./name-model";
 
 export function MainModel() {
   const mainModel = useRef<THREE.Group>(null);
