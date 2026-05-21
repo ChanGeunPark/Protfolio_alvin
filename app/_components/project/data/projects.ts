@@ -84,7 +84,6 @@ export const allProjects: ProjectItem[] = [
       "Azure OpenAI",
       "Toss Payments",
       "next-pwa",
-      "Flutter",
     ],
     techReasons: [
       {
@@ -144,7 +143,7 @@ export const allProjects: ProjectItem[] = [
       },
     ],
     retrospective:
-      '페이지 페칭 시점, AI 캐릭터의 수명, 시스템 프롬프트의 위치 — 처음엔 다 다른 문제로 보였는데 운영해보니 결국 한 가지 질문이었습니다. "이 객체는 어디에 살고, 언제 사라져야 하는가." 다음 프로젝트는 화면 설계만큼 경계와 수명 설계도 처음부터 같이 그리려 합니다.',
+      "이 프로젝트를 통해 기능 구현만큼이나 데이터와 상태의 책임 범위를 명확히 정하는 일이 중요하다는 것을 배웠습니다. SEO 페이지, 피드, AI 채팅은 서로 다른 기능처럼 보였지만 운영 관점에서는 모두 보안 경계, 상태 수명, 데이터 흐름을 어디에 둘지 결정하는 문제였습니다. 이후에는 화면 설계와 함께 서버-클라이언트 경계와 객체의 수명 주기를 먼저 검토하는 방식으로 일하고 있습니다.",
     imageHint: "CHIZU COMICS 대표 화면 이미지",
     videoUrl:
       "https://iframe.videodelivery.net/e311c4b8b0ef0347e3c8718df1041e08",
@@ -199,7 +198,7 @@ export const allProjects: ProjectItem[] = [
       {
         tech: "Apollo Client",
         reason:
-          "NFT 마켓플레이스의 복잡한 데이터 관계를 GraphQL로 효율적으로 다루고 InMemoryCache 기반 기본 캐싱 효과를 활용하기 위해 선택",
+          "작품 거래 플랫폼의 복잡한 데이터 관계를 GraphQL로 효율적으로 다루고 InMemoryCache 기반 기본 캐싱 효과를 활용하기 위해 선택",
       },
       {
         tech: "Next.js Image",
@@ -219,7 +218,7 @@ export const allProjects: ProjectItem[] = [
       {
         tech: "Framer Motion",
         reason:
-          "NFT 카드 트랜지션과 마켓플레이스 인터랙션에 자연스러운 애니메이션 적용",
+          "작품 카드 트랜지션과 거래 플랫폼 인터랙션에 자연스러운 애니메이션 적용",
       },
     ],
     devIssues: [
@@ -243,11 +242,50 @@ export const allProjects: ProjectItem[] = [
       },
     ],
     retrospective:
-      '이 프로젝트는 "라이브러리에 맡길 것과 직접 짤 것" 의 분기점을 계속 정해야 했던 작업이었습니다. Masonry는 직접 짜는 게 맞았고 컬럼 균형과 CLS 방지를 동시에 풀려면 그 위에서 다시 한 겹 더 얹어야 했기 때문에 폼·라우팅 같은 영역은 기존 도구로 충분했습니다. 다음 프로젝트라면 "라이브러리의 가정과 우리 도메인이 어디서 어긋나는가" 를 먼저 보고, 직접 짜는 비용과 라이브러리를 우회하는 비용을 비교한 뒤 결정하려 합니다.',
+      "이 프로젝트를 통해 기술 선택은 새로운 기술을 쓰는 일보다 서비스 문제에 맞는 방법을 고르는 일이라는 것을 배웠습니다. 실시간 이벤트는 Socket.IO에 모두 맡기기보다 GraphQL 재호출로 정합성을 회복했고, Masonry는 직접 구현해 컬럼 편차와 화면 흔들림을 함께 줄였습니다. 이후에는 직접 구현이 필요한 영역과 검증된 도구를 활용할 영역을 먼저 구분하며 사용자 경험과 개발 효율을 함께 판단하고 있습니다.",
     imageHint: "CHIZU 핵심 화면 이미지",
     videoUrl:
       "https://iframe.videodelivery.net/43f90b45114542f66c388fe26f5a12bf",
     imageUrl: null,
+  },
+  {
+    organization: "에듀에듀",
+    title: "에듀에듀",
+    oneLine:
+      "B2B 화상채팅 플랫폼과 응용 서비스(Wekeep · QuickClass) — 퍼블리셔에서 풀스택 영역까지 확장",
+    role: "퍼블리셔로 입사 → PHP / MySQL까지 영역 확장, 프론트엔드 + 데이터 연동 전담",
+    period: "2020.10 ~ 2022.06",
+    contributionRate:
+      "화면 디자인 · 퍼블리싱 · 사용자 UI/UX 전반 · 기존 PHP 베이스 위 어드민 기능 확장 · MySQL 테이블 설계 · PHP 연동",
+    isLive: false,
+    siteUrl: undefined,
+    githubUrl: undefined,
+    highlights: [
+      "학원·기업 납품용 B2B 화상채팅 플랫폼 사용자 흐름 구현",
+      "클래스 개설 → 목록 → 상세 → 입장 → 화상채팅까지 전 플로우 구현",
+      "기존 PHP 어드민 베이스 위에 클래스 개설, 실시간 화상 관리, 일정·학생·상세 페이지 관리, 수익률 지표 등 운영 기능 확장",
+      "MySQL 테이블 직접 설계 및 쿼리 작성",
+      "화상채팅 코어를 Wekeep, QuickClass 등 응용 서비스로 재활용",
+    ],
+    contributions: [
+      "B2B 화상채팅 플랫폼(학원·기업 납품) 사용자 플로우를 HTML/CSS/JS로 구현",
+      "기존 PHP 어드민 베이스 위에 실시간 화상·일정·학생·상세 페이지·수익 지표 운영 기능 확장",
+      "MySQL 테이블 설계 및 쿼리 작성까지 직접 진행",
+      "Wekeep: QR 명함 정보 확인 → 화상 입장 단일 흐름 UI와 PHP 서버 연동 구현",
+      "QuickClass: 전문가 검색, 클래스 개설·예약·입장 흐름 UI와 데이터 연동 구현",
+    ],
+    achievements: [
+      "학원·기업이 직접 클래스를 개설·운영할 수 있는 플랫폼 완성",
+      "퍼블리셔에서 프론트엔드 + PHP/MySQL 데이터 연동까지 영역 확장",
+      "화상채팅 코어를 응용 서비스로 확장하며 재사용 가능한 사용자 흐름 구조 확보",
+    ],
+    tech: ["HTML", "CSS", "JavaScript", "Tailwind CSS", "PHP", "MySQL"],
+    retrospective:
+      "퍼블리셔로 시작해 PHP, MySQL, 운영 기능 개발까지 역할을 넓힌 프로젝트입니다. 기존 시스템을 이해하고 그 위에 클래스 운영, 화상 입장, 일정·학생 관리 기능을 확장하면서 화면 구현을 넘어 서비스 전체 흐름을 보는 경험을 쌓았습니다. 화상채팅 코어가 Wekeep, QuickClass로 재사용되는 과정을 보며 좋은 사용자 흐름은 도메인이 달라도 다시 활용될 수 있다는 점도 체감했습니다.",
+    imageHint: "에듀에듀 B2B 화상채팅 플랫폼 화면 이미지",
+    videoUrl: null,
+    imageUrl:
+      "https://imagedelivery.net/anvL-_ABM0Z5KQo2YmJX4g/d3bce1bb-1dc2-47e2-09c4-2b2af2340e00/public",
   },
   {
     organization: "OG",
@@ -276,7 +314,7 @@ export const allProjects: ProjectItem[] = [
       "렌더링 병목 개선으로 그래픽 처리 비용 49% 절감",
       "MessagePack 도입으로 데이터 로드 속도 2.67배 향상",
       "오브젝트 배치 편집 중 프레임 드롭 제거",
-      "누적 2만 다운로드, 피크 1,700 DAU 라이브 운영",
+      "누적 2만 다운로드 라이브 운영",
     ],
     tech: [
       "Unity",
@@ -285,7 +323,6 @@ export const allProjects: ProjectItem[] = [
       "UniTask",
       "Addressables",
       "MessagePack",
-      "Firebase",
       "NavMesh",
     ],
     techReasons: [
@@ -325,49 +362,10 @@ export const allProjects: ProjectItem[] = [
       },
     ],
     retrospective:
-      "4년차에 게임 클라이언트로 영역을 확장하면서, 이미 가지고 있던 두 원칙이 도메인을 넘어 그대로 작동한다는 걸 다시 확인했습니다. NPC 행동 시스템을 Behavior Tree 대신 State Machine으로 택한 것은 복잡한 도구가 답이 아니라 제약(상태 5~10개 · 모바일 동시 5명 · 4인 팀의 이해도) 안에서 가장 단순한 도구가 옳다는 판단이었고, 최적화 작업도 추측 대신 Unity Profiler, Frame Debugger로 병목을 측정한 뒤 드로우콜, GC, Update 순으로 임팩트 큰 곳부터 손봤기 때문에 짧은 일정에서도 의미 있는 결과를 만들 수 있었습니다.",
+      "웹이 아닌 Unity 게임 프로젝트였지만, 문제를 측정하고 우선순위를 정해 개선하는 방식은 동일하게 중요했습니다. 다중 애니메이션, 데이터 직렬화, NavMesh 베이킹처럼 사용자 체감에 직접 영향을 주는 병목을 먼저 확인하고, 성능 개선 결과를 수치로 검증했습니다. 기술 영역이 달라도 문제를 관찰하고 가장 영향이 큰 지점부터 줄여가는 기본기는 이어진다는 것을 배웠습니다.",
     videoUrl:
       "https://iframe.videodelivery.net/dfb40045f4086d15b9898dce60a7757f",
     imageUrl: null,
-  },
-  {
-    organization: "에듀에듀",
-    title: "에듀에듀",
-    oneLine:
-      "B2B 화상채팅 플랫폼과 응용 서비스(Wekeep · QuickClass) — 퍼블리셔에서 풀스택 영역까지 확장",
-    role: "퍼블리셔로 입사 → PHP / MySQL까지 영역 확장, 프론트엔드 + 데이터 연동 전담",
-    period: "2020.10 ~ 2022.06",
-    contributionRate:
-      "화면 디자인 · 퍼블리싱 · 사용자 UI/UX 전반 · 기존 PHP 베이스 위 어드민 기능 확장 · MySQL 테이블 설계 · PHP 연동",
-    isLive: false,
-    siteUrl: undefined,
-    githubUrl: undefined,
-    highlights: [
-      "학원·기업 납품용 B2B 화상채팅 플랫폼 사용자 흐름 구현",
-      "클래스 개설 → 목록 → 상세 → 입장 → 화상채팅까지 전 플로우 구현",
-      "기존 PHP 어드민 베이스 위에 클래스 개설, 실시간 화상 관리, 일정·학생·상세 페이지 관리, 수익률 지표 등 운영 기능 확장",
-      "MySQL 테이블 직접 설계 및 쿼리 작성",
-      "화상채팅 코어를 Wekeep, QuickClass 등 응용 서비스로 재활용",
-    ],
-    contributions: [
-      "B2B 화상채팅 플랫폼(학원·기업 납품) 사용자 플로우를 HTML/CSS/JS로 구현",
-      "기존 PHP 어드민 베이스 위에 실시간 화상·일정·학생·상세 페이지·수익 지표 운영 기능 확장",
-      "MySQL 테이블 설계 및 쿼리 작성까지 직접 진행",
-      "Wekeep: QR 명함 정보 확인 → 화상 입장 단일 흐름 UI와 PHP 서버 연동 구현",
-      "QuickClass: 전문가 검색, 클래스 개설·예약·입장 흐름 UI와 데이터 연동 구현",
-    ],
-    achievements: [
-      "학원·기업이 직접 클래스를 개설·운영할 수 있는 플랫폼 완성",
-      "퍼블리셔에서 프론트엔드 + PHP/MySQL 데이터 연동까지 영역 확장",
-      "화상채팅 코어를 응용 서비스로 확장하며 재사용 가능한 사용자 흐름 구조 확보",
-    ],
-    tech: ["HTML", "CSS", "JavaScript", "Tailwind CSS", "PHP", "MySQL"],
-    retrospective:
-      "퍼블리셔로 입사한 뒤 PHP와 MySQL까지 영역을 넓혀가며 기존 어드민 베이스 위에 운영 기능을 확장하고 사용자 플로우 전반을 구현했습니다. 이미 만들어진 구조 위에서 기능을 보태는 작업이 많았기 때문에, 코드를 새로 짜는 것만큼이나 기존 흐름을 읽고 그 위에 자연스럽게 얹는 일이 중요하다는 것을 배웠습니다. 화상채팅 코어가 Wekeep, QuickClass 같은 응용 서비스로 재사용되는 과정을 보면서, 도메인이 달라도 좋은 사용자 흐름의 구조는 재활용된다는 것도 함께 체감했습니다.",
-    imageHint: "에듀에듀 B2B 화상채팅 플랫폼 화면 이미지",
-    videoUrl: null,
-    imageUrl:
-      "https://imagedelivery.net/anvL-_ABM0Z5KQo2YmJX4g/d3bce1bb-1dc2-47e2-09c4-2b2af2340e00/public",
   },
   {
     organization: "Personal",
@@ -382,6 +380,7 @@ export const allProjects: ProjectItem[] = [
     siteUrl: "https://www.xn--ob0bo0wy3p.com/",
     githubUrl: "https://github.com/ChanGeunPark/KaGongMap",
     highlights: [
+      "Next.js 웹앱을 Flutter WebView로 감싸 위치 권한·실시간 좌표·푸시 알림을 브릿지로 연결해 웹/앱을 하나의 서비스로 운영",
       "AI 자동 제보를 어드민 로컬 브릿지(Hono + Claude CLI + SSE)로 운영해 클라우드 LLM 비용 0원",
       "마커용 경량 데이터와 상세용 중량 데이터를 분리해 카페 수 증가에도 초기 로딩 페이로드를 일정하게 유지",
       "카페 등록·상세·수정·후기를 모달 기반으로 처리해 지도 컨텍스트를 보존",
@@ -393,10 +392,12 @@ export const allProjects: ProjectItem[] = [
       "마커용 가벼운 데이터와 상세용 이미지/후기/영업시간 데이터를 DB view 단에서 분리",
       "카페 등록, 상세, 수정, 후기를 지도 위 모달로 처리하고 Zustand로 지도 뷰포트와 선택 상태 보존",
       "Supabase PostgreSQL/Auth/RLS와 NextAuth(Kakao, Google) 인증 흐름 구성",
+      "Flutter WebView 메시지 브릿지로 위치 권한, 실시간 좌표, 푸시 알림을 웹앱과 동기화",
       "Cloudflare Images, Firebase FCM/Analytics, React Query, React Hook Form을 실제 제품 흐름에 통합",
       "어드민 PC 로컬 서버(Hono)와 Claude CLI를 SSE로 연결해 AI 자동 제보 검수 파이프라인 구현",
     ],
     achievements: [
+      "웹과 앱을 별도로 만들지 않고 하나의 Next.js 코드베이스를 Flutter WebView 앱까지 확장",
       "지도 첫 렌더에서는 마커만 로딩하고 상세는 핀 클릭 시 lazy fetch해 초기 체감 속도 유지",
       "카페 등록·상세·수정·후기를 별도 라우트 없이 모달로 처리해 사용자 흐름 단순화",
       "로컬 브릿지 기반 AI 자동 제보를 사람 제보와 동일한 검증 라인에 합류시켜 운영 비용 0원 실험",
@@ -406,6 +407,7 @@ export const allProjects: ProjectItem[] = [
       "Next.js 16",
       "React 19",
       "TypeScript",
+      "Flutter WebView",
       "Tailwind CSS 4",
       "Supabase",
       "PostgreSQL",
@@ -423,6 +425,11 @@ export const allProjects: ProjectItem[] = [
       "Vitest",
     ],
     techReasons: [
+      {
+        tech: "Flutter WebView",
+        reason:
+          "Next.js 웹앱을 그대로 사용하면서 위치 권한, 실시간 좌표, 푸시 알림처럼 앱에서 필요한 기능만 메시지 브릿지로 연결하기 위해 사용",
+      },
       {
         tech: "Next.js 16 App Router",
         reason:
@@ -452,6 +459,12 @@ export const allProjects: ProjectItem[] = [
     devIssues: [
       {
         issue:
+          "웹과 앱을 따로 구현하면 지도 UI, 인증, 카페 상세 흐름을 중복 관리해야 하는 문제",
+        solution:
+          "Next.js 웹앱을 Flutter WebView로 래핑하고 위치 권한·실시간 좌표·푸시 알림은 Web-Native 메시지 브릿지로 연결",
+      },
+      {
+        issue:
           "지도 서비스에서 모든 카페 상세 데이터를 첫 렌더에 싣게 되면 이미지/후기/영업시간 때문에 초기 페이로드가 커지는 문제",
         solution:
           "마커용 view와 상세용 view를 분리해 첫 렌더는 좌표/태그/좋아요 수만 받고, 상세 정보는 핀 클릭 시 lazy fetch",
@@ -470,7 +483,7 @@ export const allProjects: ProjectItem[] = [
       },
     ],
     retrospective:
-      "회사에서 익힌 페이지별 fetching 전략과 도메인 단위 상태 분리를 지도 서비스 제약에 맞게 다시 적용했습니다. 작은 개인 제품이지만 원칙이 도메인을 옮겨도 살아남는다는 것을 확인했고, Next.js 16과 React 19 같은 최신 스택도 실제 배포 흐름으로 학습했습니다.",
+      "직접 겪은 문제를 해결하기 위해 기획부터 배포까지 혼자 진행한 프로젝트입니다. 회사에서 익힌 데이터 설계, 보안 경계, 사용자 흐름에 대한 기준을 지도 서비스와 WebView 앱의 제약에 맞게 다시 적용했습니다. 개인 서비스라도 실제 운영을 고려하면 초기 로딩, 권한 경계, 검수 파이프라인을 제품 구조 안에 함께 설계해야 한다는 점을 배웠습니다.",
     imageHint: "카공맵 지도 커뮤니티 화면 이미지",
     videoUrl:
       "https://iframe.videodelivery.net/c2352e881613a8bd7dee67a5c678ed9d",

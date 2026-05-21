@@ -13,10 +13,7 @@ function Project() {
   const { openModal } = useAppModal();
   const handleOpenModal = (project: ProjectItem) => {
     openModal({
-      title: project.title,
       children: <ProjectDetailModal project={project} />,
-      videoUrl: project.videoUrl,
-      imageUrl: project.imageUrl,
     });
   };
 
