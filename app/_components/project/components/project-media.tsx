@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { getStreamEmbedUrl } from "@/lib/utils";
 
-import { ProjectItem } from "./data/projects";
+import { ProjectItem } from "../data/projects";
 
 type ProjectMediaProps = {
   project: ProjectItem;

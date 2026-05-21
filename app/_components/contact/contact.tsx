@@ -65,7 +65,6 @@ export default function Contact() {
 
     setSubmitting(true);
 
-    console.log(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_PUBLIC_KEY);
     try {
       await emailjs.send(
         EMAILJS_SERVICE_ID,

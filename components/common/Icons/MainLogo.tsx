@@ -2,12 +2,10 @@ import { cls } from "@/lib/utils";
 import React from "react";
 
 interface LogoProps {
-  width?: number;
-  height?: number;
   className?: string;
 }
 
-function MainLogo({ width = 96, height = 20, className, ...rest }: LogoProps) {
+function MainLogo({ className }: LogoProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

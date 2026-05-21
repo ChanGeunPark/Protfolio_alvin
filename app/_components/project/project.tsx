@@ -1,11 +1,11 @@
 "use client";
 
 import { useProjectSceneMotion } from "./hooks/useProjectSceneMotion";
-import ProjectIntroScene from "./projectIntroScene";
+import ProjectIntroScene from "./components/project-intro-scene";
 import { useAppModal } from "@/components/common/modal";
 import { allProjects, type ProjectItem } from "./data/projects";
-import ProjectDetailModal from "./ProjectDetailModal";
-import ProjectCard from "./ProjectCard";
+import ProjectDetailModal from "./components/project-detail-modal";
+import ProjectCard from "./components/project-card";
 
 function Project() {
   useProjectSceneMotion();
@@ -13,10 +13,7 @@ function Project() {
   const { openModal } = useAppModal();
   const handleOpenModal = (project: ProjectItem) => {
     openModal({
-      title: project.title,
       children: <ProjectDetailModal project={project} />,
-      videoUrl: project.videoUrl,
-      imageUrl: project.imageUrl,
     });
   };
 

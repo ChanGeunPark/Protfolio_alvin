@@ -1,6 +1,5 @@
 import { useGLTF } from "@react-three/drei";
 import { useMemo } from "react";
-import * as THREE from "three";
 
 function Character() {
   const { scene } = useGLTF("/model/character/scene.gltf");

@@ -1,22 +1,17 @@
 "use client";
 
 import { ScrollSmoother } from "@/lib/gsap/client";
-import { cls, getStreamEmbedUrl } from "@/lib/utils";
+import { cls } from "@/lib/utils";
 import { useEffect, type ReactNode } from "react";
 import { HiOutlineX } from "react-icons/hi";
 import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
 
 export interface BasicModalProps {
   open: boolean;
   onClose: () => void;
   children?: ReactNode;
-  isCloseButton?: boolean;
   zIndex?: number;
-  title?: ReactNode;
   className?: string;
-  videoUrl?: string | null;
-  imageUrl?: string | null;
 }
 
 export default function BasicModal(props: BasicModalProps) {
@@ -26,9 +21,6 @@ export default function BasicModal(props: BasicModalProps) {
     children,
     zIndex,
     className,
-    isCloseButton = true,
-    videoUrl,
-    imageUrl,
   } = props;
 
   const z = zIndex ?? 99;

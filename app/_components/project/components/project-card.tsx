@@ -1,9 +1,9 @@
 "use client";
 
 import { cls } from "@/lib/utils";
-import type { ProjectItem } from "./data/projects";
-import { ProjectMedia } from "./ProjectMedia";
-import ProjectMeta from "./ProjectMeta";
+import type { ProjectItem } from "../data/projects";
+import { ProjectMedia } from "./project-media";
+import ProjectMeta from "./project-meta";
 
 type ProjectCardProps = {
   project: ProjectItem;

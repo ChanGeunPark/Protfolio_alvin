@@ -11,14 +11,9 @@ import {
 } from "react";
 
 export type OpenAppModalOptions = {
-  title?: ReactNode;
   children: ReactNode;
   className?: string;
-  blur?: boolean;
-  isCloseButton?: boolean;
   zIndex?: number;
-  videoUrl?: string | null;
-  imageUrl?: string | null;
 };
 
 type ModalContextValue = {
@@ -51,12 +46,8 @@ export function ModalProvider({ children }: { children: ReactNode }) {
         <BasicModal
           open
           onClose={closeModal}
-          title={options.title}
           className={options.className}
-          isCloseButton={options.isCloseButton}
           zIndex={options.zIndex}
-          videoUrl={options.videoUrl}
-          imageUrl={options.imageUrl}
         >
           {options.children}
         </BasicModal>
